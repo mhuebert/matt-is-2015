@@ -1,4 +1,4 @@
 {
   "ignore": ["node_modules/*", "*/vendor/*", "public/*"],
-  "ext": "coffee js"
+  "ext": "coffee js cjsx"
 }
