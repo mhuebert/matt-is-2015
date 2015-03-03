@@ -8,20 +8,18 @@ var browserify = require('browserify');
 var rename = require('gulp-rename');
 var watch = require("gulp-watch");
 var watchify = require('watchify');
-var source = require('vinyl-source-stream')
-require("node-cjsx").transform()
+var source = require('vinyl-source-stream');
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 
-// console.log(watchify.args)
-watchify.args.extensions = ['.cjsx', '.coffee', '.js']
+require("node-cjsx").transform();
 
+watchify.args.extensions = ['.cjsx', '.coffee', '.js']
 var bundler = watchify(browserify("./client/app.coffee", watchify.args))
     .transform({ }, "coffee-reactify")
-    // .extensions([".cjsx", ".coffee", ".js"])
 
-bundler.transform('brfs');
 gulp.task('js', bundle);
+bundler.transform('brfs');
 bundler.on('update', bundle);
 bundler.on('log', gutil.log);
 function bundle() {
@@ -29,7 +27,6 @@ function bundle() {
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('app.js'))
     .pipe(gulp.dest("./public"))
-    .pipe(livereload())
     .pipe(rename("app.min.js"))
     .pipe(streamify(uglify()))
     .pipe(gulp.dest("./public"));
@@ -43,8 +40,12 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('./public/'))
         .pipe(livereload());
 });
+gulp.task("reload", function() {
+    livereload.reload()
+})
 
 gulp.task('default', function () {
+  gulp.watch('start.log', ['reload']);
   gulp.watch('client/**/*.styl', ['styles']);
   gulp.start(['js', 'styles'])
   livereload.listen({start: true});

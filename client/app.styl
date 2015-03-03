@@ -1,15 +1,63 @@
+@import "vendor/normalize.css"
+
 @import "vendor/gridism"
 
 body
   background #fafafa
   font-family 'Vollkorn', Georgia, Times New Roman, serif
+  line-height 140%
+  font-size 16px
+  padding-bottom 40px
   /*
    * Gridism
    * A simple, responsive, and handy CSS grid by @cobyism
    * https://github.com/cobyism/gridism
    */
-     
 
+.paper, .paper-shadow
+  box-shadow 0 0 5px rgba(0,0,0,0.15)
+.paper
+.paper
+  background white
+  box-sizing border-box
+  padding 15px
+  margin-bottom 20px
+  a
+    box-shadow inset 0 -3px 0 #fff, inset 0 -8px 0px #cbe8ff
+    transition background .15s cubic-bezier(.33,.66,.66,1)
+    text-decoration none
+    color inherit
+    box-sizing border-box
+    &:hover
+      background #cbe8ff
+  hr
+    border-bottom 1px solid #eee
+    border-style none none solid none
+    background transparent
+    margin 10px -15px
+  &.thick
+    padding 15px 30px
+    hr
+      margin 15px -30px
+
+.subtle-corner
+  border-radius 3px
+h1, h2, h3, h4, h5, p
+  margin 10px 0
+  
+h2
+  font-size 20px
+  font-weight normal
+h3
+  text-transform uppercase
+  font-size 14px
+.tag-noclick
+  background #f2f2f2
+  border-radius 5px
+  padding 2px 10px 0
+  line-height 23px
+  display inline-block
+  margin 0 5px 5px
 /* Responsive Stuff */
 @media screen and (max-width: 568px)
   /* Stack anything that isn’t full-width on smaller screens 

@@ -2,6 +2,7 @@ express = require("express")
 require("node-cjsx").transform()
 React = require("react")
 Router = require("react-router")
+fs = require("fs")
 
 app = express()
 app.use express.static(__dirname + "/public")
@@ -19,3 +20,4 @@ app.get "/", (req, res) ->
     res.send(markup)
 
 app.listen (process.env.port || 3003)
+fs.writeFile(__dirname + '/start.log', 'started');
