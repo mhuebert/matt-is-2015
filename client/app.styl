@@ -15,28 +15,55 @@ body
    */
 .icon
   font-size 30px
-a.icon
   opacity 0.5
   transition opacity 0.2s
+  text-decoration none
   &:hover
     opacity 1
     cursor pointer
+    text-decoration none
 .paper, .paper-shadow
   box-shadow 0 0 5px rgba(0,0,0,0.15)
+
+.left-menu
+  width 150px
+  position absolute
+  transform translate3d(-150px,0,0)
+  height 100%
+  transition all ease-out 0.35s
+  z-index 100
+  top 40px
+  // background rgba(255,255,255,0.95)
+  // box-shadow 0 0 5px rgba(0,0,0,0.15)
+  a
+    display block
+    white-space nowrap
+    overflow hidden
+    color black
+    transition all ease-out 0.35s
+    // position absolute
+    // margin-left 50%
+.black-screen
+  background rgba(0,0,0,0.7)
+  width: 100%
+  height: 100%
+  position: fixed
+  z-index 11
 .image-slider
   transition height 0.3s ease-in-out
   position relative
   > *
     display inline-block
+
 .inner-slider
   transition all 0.5s ease-out
   position absolute
   top 0
   left 0
   width 10000px
-  // transform translate3d(0,0,0)
   white-space: nowrap
   font-size: 0
+  cursor pointer
 .slider-nav
   width 100%
   padding-top 10px
@@ -73,6 +100,10 @@ a.icon
     padding 15px 30px
     hr
       margin 15px -30px
+a
+  text-decoration none
+a:hover
+  text-decoration underline
 p a
   box-shadow inset 0 -3px 0 #fff, inset 0 -8px 0px #cbe8ff
   &:hover

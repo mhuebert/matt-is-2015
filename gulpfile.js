@@ -41,7 +41,6 @@ gulp.task('styles', function () {
     gulp.src('./client/app.styl')
         .pipe(plumber())
         .pipe(stylus({"include css": true}))
-        .pipe(autoprefixer())
         .pipe(gulp.dest('./public/'))
         .pipe(livereload());
 });
