@@ -14,7 +14,6 @@ module.exports = React.createClass
     if @state.mounted then Math.random() else 0.5
   toggleMenu: ->
     @setState menuActive: !@state.menuActive
-
   render: ->
     transformLeft = (if @state.menuActive then 0 else -150)
     toggle = <a onClick={@toggleMenu} className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />

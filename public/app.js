@@ -441,15 +441,15 @@ module.exports = React.createClass({
       "className": "tag-noclick"
     }, "React.js"), React.createElement("span", {
       "className": "tag-noclick"
-    }, "Firebase")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "A new continent:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "Programming rebirth:"), " ", React.createElement("a", {
+    }, "Firebase")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "continental drift:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "rebirth:"), " ", React.createElement("a", {
       "href": "http://www.hackerschool.com"
-    }, "Hacker School"), "."), React.createElement("p", null, React.createElement("em", null, "2013"), React.createElement("br", null), React.createElement("em", null, "Joined the faculty:"), " ", React.createElement("a", {
+    }, "Hacker School"), "."), React.createElement("p", null, React.createElement("em", null, "2013"), React.createElement("br", null), React.createElement("em", null, "joined the faculty:"), " ", React.createElement("a", {
       "href": "http://www.banffcentre.ca"
-    }, "The Banff Centre"), "."), React.createElement("p", null, React.createElement("em", null, "2012"), React.createElement("br", null), React.createElement("em", null, "Shipped:"), " ", React.createElement("a", {
+    }, "The Banff Centre"), "."), React.createElement("p", null, React.createElement("em", null, "2012"), React.createElement("br", null), React.createElement("em", null, "shipped:"), " ", React.createElement("a", {
       "href": "http://www.braintripping.com"
-    }, "BrainTripping"), "."), React.createElement("p", null, React.createElement("em", null, "2011"), React.createElement("br", null), React.createElement("em", null, "Shipped:"), " ", React.createElement("a", {
+    }, "BrainTripping"), "."), React.createElement("p", null, React.createElement("em", null, "2011"), React.createElement("br", null), React.createElement("em", null, "shipped:"), " ", React.createElement("a", {
       "href": "http://www.overlap.me"
-    }, "Overlap.me"), "."), React.createElement("p", null, React.createElement("em", null, "2007"), React.createElement("br", null), React.createElement("em", null, "Co-founded:"), " ", React.createElement("a", {
+    }, "Overlap.me"), "."), React.createElement("p", null, React.createElement("em", null, "2007"), React.createElement("br", null), React.createElement("em", null, "co-founded:"), " ", React.createElement("a", {
       "href": "http://www.bodo.ca"
     }, "Bodo"), ".")), React.createElement("img", {
       "className": "paper-shadow subtle-corner",
