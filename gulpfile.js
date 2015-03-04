@@ -53,6 +53,7 @@ gulp.task('default', function () {
   if (!process.env.PORT) {
     gulp.watch('start.log', ['reload']);
     gulp.watch('client/**/*.styl', ['styles']);
+    gulp.watch('client/**/*.css', ['styles']);
     livereload.listen({start: true});
   }
 });

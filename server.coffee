@@ -1,5 +1,6 @@
 express = require("express")
 require("node-cjsx").transform()
+require('node-jsx').install({extension: '.jsx'})
 React = require("react")
 Router = require("react-router")
 fs = require("fs")
@@ -8,7 +9,7 @@ app = express()
 app.use express.static(__dirname + "/public")
 routes = require("./routes")
  
-app.get "/", (req, res) ->
+app.get "*", (req, res) ->
   Router.run routes, req.url, (Handler, state) ->
     handler = React.createElement(Handler)
     markup = React.renderToString(handler)
@@ -19,6 +20,5 @@ app.get "/", (req, res) ->
     res.setHeader('Content-Type', 'text/html')
     res.send(markup)
 
-console.log process.env.PORT, process.env.RETHINKDB_HOST, process.env.RETHINKDB_PORT
 app.listen (process.env.PORT || 3003)
 fs.writeFile(__dirname + '/start.log', 'started');

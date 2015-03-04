@@ -1,3 +1,6 @@
 @Layout = require("./layout")
 @Head = require("./head")
 @Home = require("./home")
+@Nav = require("./nav")
+@Sidebar = require("./sidebar")
+@Meta = require("./meta")
