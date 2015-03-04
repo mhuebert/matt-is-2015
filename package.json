@@ -4,6 +4,7 @@
   "description": "2015 website of Matt Huebert",
   "main": "server.coffee",
   "scripts": {
+    "start": "coffee server.coffee",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matthew Huebert",
