@@ -1,5 +1,2 @@
 node_modules
-public/app.js
-public/app.min.js
-public/app.css
 *.log
