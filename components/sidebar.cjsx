@@ -26,27 +26,27 @@ module.exports = React.createClass
         <h3>History</h3>
         <p>
           <em>2015</em><br/>
-          <em>continental drift:</em> Berlin.
+          <em>Relocation:</em> Berlin.
         </p>
         <p>
           <em>2014</em><br/>
-          <em>rebirth:</em> <a href="http://www.hackerschool.com">Hacker School</a>.
+          <em>Laboratory:</em> <a href="http://www.hackerschool.com">Hacker School</a>.
         </p>
         <p>
           <em>2013</em><br/>
-          <em>joined the faculty:</em> <a href="http://www.banffcentre.ca">The Banff Centre</a>.
+          <em>Joined the faculty:</em> <a href="http://www.banffcentre.ca">The Banff Centre</a>.
         </p>
         <p>
           <em>2012</em><br/>
-          <em>shipped:</em> <a href="http://www.braintripping.com">BrainTripping</a>.
+          <em>Shipped:</em> <a href="http://www.braintripping.com">BrainTripping</a>.
         </p>
         <p>
           <em>2011</em><br/>
-          <em>shipped:</em> <a href="http://www.overlap.me">Overlap.me</a>.
+          <em>Shipped:</em> <a href="http://www.overlap.me">Overlap.me</a>.
         </p>
         <p>
           <em>2007</em><br/>
-          <em>co-founded:</em> <a href="http://www.bodo.ca">Bodo</a>.
+          <em>Co-founded:</em> <a href="http://www.bodo.ca">Bodo</a>.
         </p>
       </div>
       <img className="paper-shadow subtle-corner" src="/images/matt-huebert-300px.jpg" />
