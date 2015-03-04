@@ -4,7 +4,7 @@ React = require("react")
 module.exports = React.createClass
   render: ->
     <div className="grid">
-      <div className="unit whole-width" style={{height: 25, paddingBottom: 0}}>
+      <div className="unit whole-width" style={{paddingBottom: 0}}>
         <a className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />
       </div>
     </div>

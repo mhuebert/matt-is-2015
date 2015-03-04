@@ -15,7 +15,6 @@ module.exports = React.createClass
       draggable: true
       arrows: true
       dotsClass: "hide-on-mobiles slick-dots"
-
     <Slider ref="slider" {... settings}>
       <img onLoad={@handleFirstImageLoaded} src='/photography/bg_sky_only.jpg' />
       <img src='/photography/banana.jpg' />
