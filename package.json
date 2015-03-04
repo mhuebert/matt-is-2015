@@ -18,8 +18,6 @@
     "react-router": "^0.12.4",
     "node-cjsx": "^0.1.3",
     "react-tap-event-plugin": "^0.1.4",
-    "material-ui": "^0.7.0",
-    "react-slick": "git://github.com/mhuebert/react-slick.git",
     "node-jsx": "^0.12.4",
     "reactify": "^1.0.0"
   },

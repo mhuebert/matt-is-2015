@@ -1,7 +1,6 @@
 @import "vendor/normalize.css"
 @import "vendor/icomoon.css"
 @import "vendor/gridism"
-@import "vendor/slick.css"
 
 body
   background #fafafa
@@ -24,7 +23,37 @@ a.icon
     cursor pointer
 .paper, .paper-shadow
   box-shadow 0 0 5px rgba(0,0,0,0.15)
-.paper
+.image-slider
+  transition height 0.3s ease-in-out
+  position relative
+  > *
+    display inline-block
+.inner-slider
+  transition all 0.5s ease-out
+  position absolute
+  top 0
+  left 0
+  width 10000px
+  // transform translate3d(0,0,0)
+  white-space: nowrap
+  font-size: 0
+.slider-nav
+  width 100%
+  padding-top 10px
+  &:after
+    clear: both
+.slider-move
+  width 40px
+  height 40px
+  border-radius 20px
+  background #eee
+  color rgba(0,0,0,0.3)
+  display: block
+  font-size 40px
+  text-alignc enter
+  &:hover
+    cursor pointer
+    background #ddd
 .paper
   background white
   box-sizing border-box

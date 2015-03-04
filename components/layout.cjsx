@@ -19,8 +19,7 @@ module.exports = React.createClass
           <div className="unit one-third align-center">
             <Sidebar/>
           </div>
-        </div> 
-        <script src="/app.js"></script>
+        </div>
       </body>
     </html>
 
