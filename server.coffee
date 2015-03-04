@@ -19,6 +19,6 @@ app.get "/", (req, res) ->
     res.setHeader('Content-Type', 'text/html')
     res.send(markup)
 
-console.log process.env.PORT
+console.log process.env.PORT, process.env.RETHINKDB_HOST, process.env.RETHINKDB_PORT
 app.listen (process.env.PORT || 3003)
 fs.writeFile(__dirname + '/start.log', 'started');
