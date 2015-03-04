@@ -7,7 +7,7 @@ fs = require("fs")
 app = express()
 app.use express.static(__dirname + "/public")
 routes = require("./routes")
-
+ 
 app.get "/", (req, res) ->
   Router.run routes, req.url, (Handler, state) ->
     handler = React.createElement(Handler)

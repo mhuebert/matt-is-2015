@@ -15,8 +15,12 @@ var streamify = require("gulp-streamify");
 require("node-cjsx").transform();
 
 watchify.args.extensions = ['.cjsx', '.coffee', '.js']
-var bundler = watchify(browserify("./client/app.coffee", watchify.args))
+var bundler = browserify("./client/app.coffee", watchify.args)
     .transform({ }, "coffee-reactify")
+
+if (!process.env.PORT) {
+  bundler = watchify(bundler)
+}
 
 gulp.task('js', bundle);
 bundler.transform('brfs');
@@ -45,8 +49,10 @@ gulp.task("reload", function() {
 })
 
 gulp.task('default', function () {
-  gulp.watch('start.log', ['reload']);
-  gulp.watch('client/**/*.styl', ['styles']);
-  gulp.start(['js', 'styles'])
-  livereload.listen({start: true});
+  gulp.start(['js', 'styles']);
+  if (!process.env.PORT) {
+    gulp.watch('start.log', ['reload']);
+    gulp.watch('client/**/*.styl', ['styles']);
+    livereload.listen({start: true});
+  }
 });
