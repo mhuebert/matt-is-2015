@@ -19,6 +19,6 @@ app.get "/", (req, res) ->
     res.setHeader('Content-Type', 'text/html')
     res.send(markup)
 
-console.log process.env
-# app.listen (process.env.PORT || 3003)
+console.log process.env.PORT
+app.listen (process.env.PORT || 3003)
 fs.writeFile(__dirname + '/start.log', 'started');
