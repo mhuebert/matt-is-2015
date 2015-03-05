@@ -8,10 +8,15 @@ module.exports = React.createClass
     position: 0
     total: 16
   componentDidMount: ->
+    @setSize()
+    window.addEventListener('resize', this.setSize)
+  componentWillUnmount: (nextProps, nextState) ->
+    window.removeEventListener('resize', this.setSize)
+  setSize: ->
     @setState
       width: @refs.slider.getDOMNode().getBoundingClientRect().width
-  handleFirstImageLoaded: (e) ->
-    @setState height: @refs.firstImage.getDOMNode().height
+    @setState
+      height: @refs.firstImage.getDOMNode().height
   move: (positions) ->
     (e) =>
       e?.stopPropagation()
@@ -28,7 +33,7 @@ module.exports = React.createClass
     <div>
     <div style={{height: @state.height}} className="image-slider" ref="slider" >
       <div onClick={@move(1)} style={innerSliderStyle} className="inner-slider">
-        <img style={{width: @state.width}} ref="firstImage" onLoad={@handleFirstImageLoaded} src='/photography/bg_sky_only.jpg' />
+        <img style={{width: @state.width}} ref="firstImage" onLoad={@setSize} src='/photography/bg_sky_only.jpg' />
         <img style={{width: @state.width}} src='/photography/banana.jpg' />
         <img style={{width: @state.width}} src='/photography/Guatemala-002.jpg' />
         <img style={{width: @state.width}} src='/photography/Guatemala-006.jpg' />

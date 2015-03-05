@@ -271,11 +271,16 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function() {
-    return this.setState({
+    this.setSize();
+    return window.addEventListener('resize', this.setSize);
+  },
+  componentWillUnmount: function(nextProps, nextState) {
+    return window.removeEventListener('resize', this.setSize);
+  },
+  setSize: function() {
+    this.setState({
       width: this.refs.slider.getDOMNode().getBoundingClientRect().width
     });
-  },
-  handleFirstImageLoaded: function(e) {
     return this.setState({
       height: this.refs.firstImage.getDOMNode().height
     });
@@ -325,7 +330,7 @@ module.exports = React.createClass({
         width: this.state.width
       },
       "ref": "firstImage",
-      "onLoad": this.handleFirstImageLoaded,
+      "onLoad": this.setSize,
       "src": '/photography/bg_sky_only.jpg'
     }), React.createElement("img", {
       "style": {
