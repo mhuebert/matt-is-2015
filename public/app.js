@@ -31,7 +31,7 @@ module.exports = React.createClass({
       "type": "text/css",
       "href": "/app.css"
     }), React.createElement("script", {
-      "src": "/app.min.js"
+      "src": "/app.js"
     }));
   }
 });
@@ -81,9 +81,11 @@ this.Meta = require("./meta");
 
 
 },{"./head":"/Users/MattPro/Dropbox/Sites/mattis/components/head.cjsx","./home":"/Users/MattPro/Dropbox/Sites/mattis/components/home.cjsx","./layout":"/Users/MattPro/Dropbox/Sites/mattis/components/layout.cjsx","./meta":"/Users/MattPro/Dropbox/Sites/mattis/components/meta.cjsx","./nav":"/Users/MattPro/Dropbox/Sites/mattis/components/nav.cjsx","./sidebar":"/Users/MattPro/Dropbox/Sites/mattis/components/sidebar.cjsx"}],"/Users/MattPro/Dropbox/Sites/mattis/components/layout.cjsx":[function(require,module,exports){
-var Head, Nav, React, RouteHandler, Router, Sidebar;
+var FastClickAttach, Head, Nav, React, RouteHandler, Router, Sidebar;
 
 React = require("react");
+
+require("react-tap-event-plugin")();
 
 Head = require("./head");
 
@@ -93,8 +95,13 @@ Nav = require("./nav");
 
 RouteHandler = (Router = require("react-router")).RouteHandler;
 
+FastClickAttach = require('fastclick');
+
 module.exports = React.createClass({
   mixins: [Router.Navigation],
+  componentDidMount: function() {
+    return FastClickAttach(document.body);
+  },
   render: function() {
     return React.createElement("html", null, React.createElement(Head, {
       "title": "Matt Huebert | Designing Serendipity"
@@ -112,7 +119,7 @@ module.exports = React.createClass({
 
 
 
-},{"./head":"/Users/MattPro/Dropbox/Sites/mattis/components/head.cjsx","./nav":"/Users/MattPro/Dropbox/Sites/mattis/components/nav.cjsx","./sidebar":"/Users/MattPro/Dropbox/Sites/mattis/components/sidebar.cjsx","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/meta.cjsx":[function(require,module,exports){
+},{"./head":"/Users/MattPro/Dropbox/Sites/mattis/components/head.cjsx","./nav":"/Users/MattPro/Dropbox/Sites/mattis/components/nav.cjsx","./sidebar":"/Users/MattPro/Dropbox/Sites/mattis/components/sidebar.cjsx","fastclick":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/fastclick/lib/fastclick.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js","react-tap-event-plugin":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/meta.cjsx":[function(require,module,exports){
 var Link, React;
 
 React = require("react");
@@ -123,19 +130,13 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {};
   },
-  handleClick: function() {
-    return this.setState({
-      message: "Clicked"
-    });
-  },
   render: function() {
     return React.createElement("div", null, React.createElement("h3", {
       "style": {
         marginTop: -5
       }
     }, "Meta"), React.createElement("div", {
-      "className": "paper thick",
-      "onClick": this.handleClick
+      "className": "paper thick"
     }, React.createElement("h2", null, this.state.message || "About Matt"), React.createElement("p", null, "For six years, Matt has explored creativity and collaboration through a practice of design and computer programming while learning at some of the world\u2019s most interesting institutions for collaborative education (", React.createElement("a", {
       "href": "http://www.hackerschool.com"
     }, "Hacker School"), "), small-team innovation (", React.createElement("a", {
@@ -157,13 +158,15 @@ module.exports = React.createClass({
 
 
 },{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/nav.cjsx":[function(require,module,exports){
-var Link, React, _;
+var Link, React, prefix, _;
 
 React = require("react");
 
 Link = require("react-router").Link;
 
 _ = require("lodash");
+
+prefix = require("react-prefixr");
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -172,7 +175,7 @@ module.exports = React.createClass({
       mounted: false
     };
   },
-  toggleMenuDelay: function() {
+  toggleMenuDelayed: function() {
     return setTimeout(this.toggleMenu, 100);
   },
   componentDidMount: function() {
@@ -196,7 +199,7 @@ module.exports = React.createClass({
     var circle, toggle, transformLeft;
     transformLeft = (this.state.menuActive ? 0 : -150);
     toggle = React.createElement("a", {
-      "onClick": this.toggleMenu,
+      "onTouchTap": this.toggleMenu,
       "className": "icon-uniE6B2 icon",
       "style": {
         top: 9,
@@ -225,25 +228,25 @@ module.exports = React.createClass({
         height: 10
       }
     }, toggle, React.createElement("div", {
-      "style": {
+      "style": prefix({
         transform: "translate3d(" + transformLeft + "px,0,0)"
-      },
+      }),
       "className": "left-menu"
     }, React.createElement(Link, {
       "style": circle(30),
-      "onClick": this.toggleMenuDelay,
+      "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
     }, "    Home"), React.createElement(Link, {
       "style": circle(40),
-      "onClick": this.toggleMenuDelay,
+      "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
     }, "    Writing"), React.createElement(Link, {
       "style": circle(60),
-      "onClick": this.toggleMenuDelay,
+      "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
     }, "    Photography"), React.createElement(Link, {
       "style": circle(50),
-      "onClick": this.toggleMenuDelay,
+      "onTouchTap": this.toggleMenuDelayed,
       "to": "meta"
     }, " About Matt")));
   }
@@ -251,10 +254,12 @@ module.exports = React.createClass({
 
 
 
-},{"lodash":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/photos.cjsx":[function(require,module,exports){
-var React;
+},{"lodash":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-prefixr":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/photos.cjsx":[function(require,module,exports){
+var React, prefix;
 
 React = require("react");
+
+prefix = require("react-prefixr");
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -277,8 +282,11 @@ module.exports = React.createClass({
   },
   move: function(positions) {
     return (function(_this) {
-      return function() {
+      return function(e) {
         var newState;
+        if (e != null) {
+          e.stopPropagation();
+        }
         if (_this.state.position === _this.state.total && positions === 1) {
           newState = {
             position: 0
@@ -296,11 +304,12 @@ module.exports = React.createClass({
     })(this);
   },
   render: function() {
-    var innerSliderStyle;
-    innerSliderStyle = {
+    var innerSliderStyle, transform;
+    transform = "translate3d(" + (parseInt(-(this.state.position * this.state.width))) + "px, 0, 0)";
+    innerSliderStyle = prefix({
       height: this.state.height,
-      transform: "translate3d(" + (parseInt(-(this.state.position * this.state.width))) + "px, 0, 0)"
-    };
+      transform: transform
+    });
     return React.createElement("div", null, React.createElement("div", {
       "style": {
         height: this.state.height
@@ -418,7 +427,7 @@ module.exports = React.createClass({
 
 
 
-},{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/sidebar.cjsx":[function(require,module,exports){
+},{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-prefixr":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/sidebar.cjsx":[function(require,module,exports){
 var Link, React;
 
 React = require("react");
@@ -518,6 +527,851 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
+
+},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/fastclick/lib/fastclick.js":[function(require,module,exports){
+;(function () {
+	'use strict';
+	if (typeof(navigator) == "undefined") {
+		return
+	}
+	/**
+	 * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
+	 *
+	 * @codingstandard ftlabs-jsv2
+	 * @copyright The Financial Times Limited [All Rights Reserved]
+	 * @license MIT License (see LICENSE.txt)
+	 */
+
+	/*jslint browser:true, node:true*/
+	/*global define, Event, Node*/
+
+
+	/**
+	 * Instantiate fast-clicking listeners on the specified layer.
+	 *
+	 * @constructor
+	 * @param {Element} layer The layer to listen on
+	 * @param {Object} [options={}] The options to override the defaults
+	 */
+	function FastClick(layer, options) {
+		var oldOnClick;
+
+		options = options || {};
+
+		/**
+		 * Whether a click is currently being tracked.
+		 *
+		 * @type boolean
+		 */
+		this.trackingClick = false;
+
+
+		/**
+		 * Timestamp for when click tracking started.
+		 *
+		 * @type number
+		 */
+		this.trackingClickStart = 0;
+
+
+		/**
+		 * The element being tracked for a click.
+		 *
+		 * @type EventTarget
+		 */
+		this.targetElement = null;
+
+
+		/**
+		 * X-coordinate of touch start event.
+		 *
+		 * @type number
+		 */
+		this.touchStartX = 0;
+
+
+		/**
+		 * Y-coordinate of touch start event.
+		 *
+		 * @type number
+		 */
+		this.touchStartY = 0;
+
+
+		/**
+		 * ID of the last touch, retrieved from Touch.identifier.
+		 *
+		 * @type number
+		 */
+		this.lastTouchIdentifier = 0;
+
+
+		/**
+		 * Touchmove boundary, beyond which a click will be cancelled.
+		 *
+		 * @type number
+		 */
+		this.touchBoundary = options.touchBoundary || 10;
+
+
+		/**
+		 * The FastClick layer.
+		 *
+		 * @type Element
+		 */
+		this.layer = layer;
+
+		/**
+		 * The minimum time between tap(touchstart and touchend) events
+		 *
+		 * @type number
+		 */
+		this.tapDelay = options.tapDelay || 200;
+
+		/**
+		 * The maximum time for a tap
+		 *
+		 * @type number
+		 */
+		this.tapTimeout = options.tapTimeout || 700;
+
+		if (FastClick.notNeeded(layer)) {
+			return;
+		}
+
+		// Some old versions of Android don't have Function.prototype.bind
+		function bind(method, context) {
+			return function() { return method.apply(context, arguments); };
+		}
+
+
+		var methods = ['onMouse', 'onClick', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'];
+		var context = this;
+		for (var i = 0, l = methods.length; i < l; i++) {
+			context[methods[i]] = bind(context[methods[i]], context);
+		}
+
+		// Set up event handlers as required
+		if (deviceIsAndroid) {
+			layer.addEventListener('mouseover', this.onMouse, true);
+			layer.addEventListener('mousedown', this.onMouse, true);
+			layer.addEventListener('mouseup', this.onMouse, true);
+		}
+
+		layer.addEventListener('click', this.onClick, true);
+		layer.addEventListener('touchstart', this.onTouchStart, false);
+		layer.addEventListener('touchmove', this.onTouchMove, false);
+		layer.addEventListener('touchend', this.onTouchEnd, false);
+		layer.addEventListener('touchcancel', this.onTouchCancel, false);
+
+		// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
+		// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
+		// layer when they are cancelled.
+		if (!Event.prototype.stopImmediatePropagation) {
+			layer.removeEventListener = function(type, callback, capture) {
+				var rmv = Node.prototype.removeEventListener;
+				if (type === 'click') {
+					rmv.call(layer, type, callback.hijacked || callback, capture);
+				} else {
+					rmv.call(layer, type, callback, capture);
+				}
+			};
+
+			layer.addEventListener = function(type, callback, capture) {
+				var adv = Node.prototype.addEventListener;
+				if (type === 'click') {
+					adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
+						if (!event.propagationStopped) {
+							callback(event);
+						}
+					}), capture);
+				} else {
+					adv.call(layer, type, callback, capture);
+				}
+			};
+		}
+
+		// If a handler is already declared in the element's onclick attribute, it will be fired before
+		// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
+		// adding it as listener.
+		if (typeof layer.onclick === 'function') {
+
+			// Android browser on at least 3.2 requires a new reference to the function in layer.onclick
+			// - the old one won't work if passed to addEventListener directly.
+			oldOnClick = layer.onclick;
+			layer.addEventListener('click', function(event) {
+				oldOnClick(event);
+			}, false);
+			layer.onclick = null;
+		}
+	}
+
+	/**
+	* Windows Phone 8.1 fakes user agent string to look like Android and iPhone.
+	*
+	* @type boolean
+	*/
+	var deviceIsWindowsPhone = navigator.userAgent.indexOf("Windows Phone") >= 0;
+
+	/**
+	 * Android requires exceptions.
+	 *
+	 * @type boolean
+	 */
+	var deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0 && !deviceIsWindowsPhone;
+
+
+	/**
+	 * iOS requires exceptions.
+	 *
+	 * @type boolean
+	 */
+	var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent) && !deviceIsWindowsPhone;
+
+
+	/**
+	 * iOS 4 requires an exception for select elements.
+	 *
+	 * @type boolean
+	 */
+	var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
+
+
+	/**
+	 * iOS 6.0-7.* requires the target element to be manually derived
+	 *
+	 * @type boolean
+	 */
+	var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS [6-7]_\d/).test(navigator.userAgent);
+
+	/**
+	 * BlackBerry requires exceptions.
+	 *
+	 * @type boolean
+	 */
+	var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
+
+	/**
+	 * Determine whether a given element requires a native click.
+	 *
+	 * @param {EventTarget|Element} target Target DOM element
+	 * @returns {boolean} Returns true if the element needs a native click
+	 */
+	FastClick.prototype.needsClick = function(target) {
+		switch (target.nodeName.toLowerCase()) {
+
+		// Don't send a synthetic click to disabled inputs (issue #62)
+		case 'button':
+		case 'select':
+		case 'textarea':
+			if (target.disabled) {
+				return true;
+			}
+
+			break;
+		case 'input':
+
+			// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)
+			if ((deviceIsIOS && target.type === 'file') || target.disabled) {
+				return true;
+			}
+
+			break;
+		case 'label':
+		case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
+		case 'video':
+			return true;
+		}
+
+		return (/\bneedsclick\b/).test(target.className);
+	};
+
+
+	/**
+	 * Determine whether a given element requires a call to focus to simulate click into element.
+	 *
+	 * @param {EventTarget|Element} target Target DOM element
+	 * @returns {boolean} Returns true if the element requires a call to focus to simulate native click.
+	 */
+	FastClick.prototype.needsFocus = function(target) {
+		switch (target.nodeName.toLowerCase()) {
+		case 'textarea':
+			return true;
+		case 'select':
+			return !deviceIsAndroid;
+		case 'input':
+			switch (target.type) {
+			case 'button':
+			case 'checkbox':
+			case 'file':
+			case 'image':
+			case 'radio':
+			case 'submit':
+				return false;
+			}
+
+			// No point in attempting to focus disabled inputs
+			return !target.disabled && !target.readOnly;
+		default:
+			return (/\bneedsfocus\b/).test(target.className);
+		}
+	};
+
+
+	/**
+	 * Send a click event to the specified element.
+	 *
+	 * @param {EventTarget|Element} targetElement
+	 * @param {Event} event
+	 */
+	FastClick.prototype.sendClick = function(targetElement, event) {
+		var clickEvent, touch;
+
+		// On some Android devices activeElement needs to be blurred otherwise the synthetic click will have no effect (#24)
+		if (document.activeElement && document.activeElement !== targetElement) {
+			document.activeElement.blur();
+		}
+
+		touch = event.changedTouches[0];
+
+		// Synthesise a click event, with an extra attribute so it can be tracked
+		clickEvent = document.createEvent('MouseEvents');
+		clickEvent.initMouseEvent(this.determineEventType(targetElement), true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
+		clickEvent.forwardedTouchEvent = true;
+		targetElement.dispatchEvent(clickEvent);
+	};
+
+	FastClick.prototype.determineEventType = function(targetElement) {
+
+		//Issue #159: Android Chrome Select Box does not open with a synthetic click event
+		if (deviceIsAndroid && targetElement.tagName.toLowerCase() === 'select') {
+			return 'mousedown';
+		}
+
+		return 'click';
+	};
+
+
+	/**
+	 * @param {EventTarget|Element} targetElement
+	 */
+	FastClick.prototype.focus = function(targetElement) {
+		var length;
+
+		// Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.
+		if (deviceIsIOS && targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
+			length = targetElement.value.length;
+			targetElement.setSelectionRange(length, length);
+		} else {
+			targetElement.focus();
+		}
+	};
+
+
+	/**
+	 * Check whether the given target element is a child of a scrollable layer and if so, set a flag on it.
+	 *
+	 * @param {EventTarget|Element} targetElement
+	 */
+	FastClick.prototype.updateScrollParent = function(targetElement) {
+		var scrollParent, parentElement;
+
+		scrollParent = targetElement.fastClickScrollParent;
+
+		// Attempt to discover whether the target element is contained within a scrollable layer. Re-check if the
+		// target element was moved to another parent.
+		if (!scrollParent || !scrollParent.contains(targetElement)) {
+			parentElement = targetElement;
+			do {
+				if (parentElement.scrollHeight > parentElement.offsetHeight) {
+					scrollParent = parentElement;
+					targetElement.fastClickScrollParent = parentElement;
+					break;
+				}
+
+				parentElement = parentElement.parentElement;
+			} while (parentElement);
+		}
+
+		// Always update the scroll top tracker if possible.
+		if (scrollParent) {
+			scrollParent.fastClickLastScrollTop = scrollParent.scrollTop;
+		}
+	};
+
+
+	/**
+	 * @param {EventTarget} targetElement
+	 * @returns {Element|EventTarget}
+	 */
+	FastClick.prototype.getTargetElementFromEventTarget = function(eventTarget) {
+
+		// On some older browsers (notably Safari on iOS 4.1 - see issue #56) the event target may be a text node.
+		if (eventTarget.nodeType === Node.TEXT_NODE) {
+			return eventTarget.parentNode;
+		}
+
+		return eventTarget;
+	};
+
+
+	/**
+	 * On touch start, record the position and scroll offset.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.onTouchStart = function(event) {
+		var targetElement, touch, selection;
+
+		// Ignore multiple touches, otherwise pinch-to-zoom is prevented if both fingers are on the FastClick element (issue #111).
+		if (event.targetTouches.length > 1) {
+			return true;
+		}
+
+		targetElement = this.getTargetElementFromEventTarget(event.target);
+		touch = event.targetTouches[0];
+
+		if (deviceIsIOS) {
+
+			// Only trusted events will deselect text on iOS (issue #49)
+			selection = window.getSelection();
+			if (selection.rangeCount && !selection.isCollapsed) {
+				return true;
+			}
+
+			if (!deviceIsIOS4) {
+
+				// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
+				// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
+				// with the same identifier as the touch event that previously triggered the click that triggered the alert.
+				// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
+				// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
+				// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
+				// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
+				// random integers, it's safe to to continue if the identifier is 0 here.
+				if (touch.identifier && touch.identifier === this.lastTouchIdentifier) {
+					event.preventDefault();
+					return false;
+				}
+
+				this.lastTouchIdentifier = touch.identifier;
+
+				// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
+				// 1) the user does a fling scroll on the scrollable layer
+				// 2) the user stops the fling scroll with another tap
+				// then the event.target of the last 'touchend' event will be the element that was under the user's finger
+				// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
+				// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
+				this.updateScrollParent(targetElement);
+			}
+		}
+
+		this.trackingClick = true;
+		this.trackingClickStart = event.timeStamp;
+		this.targetElement = targetElement;
+
+		this.touchStartX = touch.pageX;
+		this.touchStartY = touch.pageY;
+
+		// Prevent phantom clicks on fast double-tap (issue #36)
+		if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+			event.preventDefault();
+		}
+
+		return true;
+	};
+
+
+	/**
+	 * Based on a touchmove event object, check whether the touch has moved past a boundary since it started.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.touchHasMoved = function(event) {
+		var touch = event.changedTouches[0], boundary = this.touchBoundary;
+
+		if (Math.abs(touch.pageX - this.touchStartX) > boundary || Math.abs(touch.pageY - this.touchStartY) > boundary) {
+			return true;
+		}
+
+		return false;
+	};
+
+
+	/**
+	 * Update the last position.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.onTouchMove = function(event) {
+		if (!this.trackingClick) {
+			return true;
+		}
+
+		// If the touch has moved, cancel the click tracking
+		if (this.targetElement !== this.getTargetElementFromEventTarget(event.target) || this.touchHasMoved(event)) {
+			this.trackingClick = false;
+			this.targetElement = null;
+		}
+
+		return true;
+	};
+
+
+	/**
+	 * Attempt to find the labelled control for the given label element.
+	 *
+	 * @param {EventTarget|HTMLLabelElement} labelElement
+	 * @returns {Element|null}
+	 */
+	FastClick.prototype.findControl = function(labelElement) {
+
+		// Fast path for newer browsers supporting the HTML5 control attribute
+		if (labelElement.control !== undefined) {
+			return labelElement.control;
+		}
+
+		// All browsers under test that support touch events also support the HTML5 htmlFor attribute
+		if (labelElement.htmlFor) {
+			return document.getElementById(labelElement.htmlFor);
+		}
+
+		// If no for attribute exists, attempt to retrieve the first labellable descendant element
+		// the list of which is defined here: http://www.w3.org/TR/html5/forms.html#category-label
+		return labelElement.querySelector('button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea');
+	};
+
+
+	/**
+	 * On touch end, determine whether to send a click event at once.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.onTouchEnd = function(event) {
+		var forElement, trackingClickStart, targetTagName, scrollParent, touch, targetElement = this.targetElement;
+
+		if (!this.trackingClick) {
+			return true;
+		}
+
+		// Prevent phantom clicks on fast double-tap (issue #36)
+		if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+			this.cancelNextClick = true;
+			return true;
+		}
+
+		if ((event.timeStamp - this.trackingClickStart) > this.tapTimeout) {
+			return true;
+		}
+
+		// Reset to prevent wrong click cancel on input (issue #156).
+		this.cancelNextClick = false;
+
+		this.lastClickTime = event.timeStamp;
+
+		trackingClickStart = this.trackingClickStart;
+		this.trackingClick = false;
+		this.trackingClickStart = 0;
+
+		// On some iOS devices, the targetElement supplied with the event is invalid if the layer
+		// is performing a transition or scroll, and has to be re-detected manually. Note that
+		// for this to function correctly, it must be called *after* the event target is checked!
+		// See issue #57; also filed as rdar://13048589 .
+		if (deviceIsIOSWithBadTarget) {
+			touch = event.changedTouches[0];
+
+			// In certain cases arguments of elementFromPoint can be negative, so prevent setting targetElement to null
+			targetElement = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset) || targetElement;
+			targetElement.fastClickScrollParent = this.targetElement.fastClickScrollParent;
+		}
+
+		targetTagName = targetElement.tagName.toLowerCase();
+		if (targetTagName === 'label') {
+			forElement = this.findControl(targetElement);
+			if (forElement) {
+				this.focus(targetElement);
+				if (deviceIsAndroid) {
+					return false;
+				}
+
+				targetElement = forElement;
+			}
+		} else if (this.needsFocus(targetElement)) {
+
+			// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
+			// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
+			if ((event.timeStamp - trackingClickStart) > 100 || (deviceIsIOS && window.top !== window && targetTagName === 'input')) {
+				this.targetElement = null;
+				return false;
+			}
+
+			this.focus(targetElement);
+			this.sendClick(targetElement, event);
+
+			// Select elements need the event to go through on iOS 4, otherwise the selector menu won't open.
+			// Also this breaks opening selects when VoiceOver is active on iOS6, iOS7 (and possibly others)
+			if (!deviceIsIOS || targetTagName !== 'select') {
+				this.targetElement = null;
+				event.preventDefault();
+			}
+
+			return false;
+		}
+
+		if (deviceIsIOS && !deviceIsIOS4) {
+
+			// Don't send a synthetic click event if the target element is contained within a parent layer that was scrolled
+			// and this tap is being used to stop the scrolling (usually initiated by a fling - issue #42).
+			scrollParent = targetElement.fastClickScrollParent;
+			if (scrollParent && scrollParent.fastClickLastScrollTop !== scrollParent.scrollTop) {
+				return true;
+			}
+		}
+
+		// Prevent the actual click from going though - unless the target node is marked as requiring
+		// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
+		if (!this.needsClick(targetElement)) {
+			event.preventDefault();
+			this.sendClick(targetElement, event);
+		}
+
+		return false;
+	};
+
+
+	/**
+	 * On touch cancel, stop tracking the click.
+	 *
+	 * @returns {void}
+	 */
+	FastClick.prototype.onTouchCancel = function() {
+		this.trackingClick = false;
+		this.targetElement = null;
+	};
+
+
+	/**
+	 * Determine mouse events which should be permitted.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.onMouse = function(event) {
+
+		// If a target element was never set (because a touch event was never fired) allow the event
+		if (!this.targetElement) {
+			return true;
+		}
+
+		if (event.forwardedTouchEvent) {
+			return true;
+		}
+
+		// Programmatically generated events targeting a specific element should be permitted
+		if (!event.cancelable) {
+			return true;
+		}
+
+		// Derive and check the target element to see whether the mouse event needs to be permitted;
+		// unless explicitly enabled, prevent non-touch click events from triggering actions,
+		// to prevent ghost/doubleclicks.
+		if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
+
+			// Prevent any user-added listeners declared on FastClick element from being fired.
+			if (event.stopImmediatePropagation) {
+				event.stopImmediatePropagation();
+			} else {
+
+				// Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
+				event.propagationStopped = true;
+			}
+
+			// Cancel the event
+			event.stopPropagation();
+			event.preventDefault();
+
+			return false;
+		}
+
+		// If the mouse event is permitted, return true for the action to go through.
+		return true;
+	};
+
+
+	/**
+	 * On actual clicks, determine whether this is a touch-generated click, a click action occurring
+	 * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or
+	 * an actual click which should be permitted.
+	 *
+	 * @param {Event} event
+	 * @returns {boolean}
+	 */
+	FastClick.prototype.onClick = function(event) {
+		var permitted;
+
+		// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.
+		if (this.trackingClick) {
+			this.targetElement = null;
+			this.trackingClick = false;
+			return true;
+		}
+
+		// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
+		if (event.target.type === 'submit' && event.detail === 0) {
+			return true;
+		}
+
+		permitted = this.onMouse(event);
+
+		// Only unset targetElement if the click is not permitted. This will ensure that the check for !targetElement in onMouse fails and the browser's click doesn't go through.
+		if (!permitted) {
+			this.targetElement = null;
+		}
+
+		// If clicks are permitted, return true for the action to go through.
+		return permitted;
+	};
+
+
+	/**
+	 * Remove all FastClick's event listeners.
+	 *
+	 * @returns {void}
+	 */
+	FastClick.prototype.destroy = function() {
+		var layer = this.layer;
+
+		if (deviceIsAndroid) {
+			layer.removeEventListener('mouseover', this.onMouse, true);
+			layer.removeEventListener('mousedown', this.onMouse, true);
+			layer.removeEventListener('mouseup', this.onMouse, true);
+		}
+
+		layer.removeEventListener('click', this.onClick, true);
+		layer.removeEventListener('touchstart', this.onTouchStart, false);
+		layer.removeEventListener('touchmove', this.onTouchMove, false);
+		layer.removeEventListener('touchend', this.onTouchEnd, false);
+		layer.removeEventListener('touchcancel', this.onTouchCancel, false);
+	};
+
+
+	/**
+	 * Check whether FastClick is needed.
+	 *
+	 * @param {Element} layer The layer to listen on
+	 */
+	FastClick.notNeeded = function(layer) {
+		var metaViewport;
+		var chromeVersion;
+		var blackberryVersion;
+		var firefoxVersion;
+
+		// Devices that don't support touch don't need FastClick
+		if (typeof window.ontouchstart === 'undefined') {
+			return true;
+		}
+
+		// Chrome version - zero for other browsers
+		chromeVersion = +(/Chrome\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
+
+		if (chromeVersion) {
+
+			if (deviceIsAndroid) {
+				metaViewport = document.querySelector('meta[name=viewport]');
+
+				if (metaViewport) {
+					// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
+					if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+						return true;
+					}
+					// Chrome 32 and above with width=device-width or less don't need FastClick
+					if (chromeVersion > 31 && document.documentElement.scrollWidth <= window.outerWidth) {
+						return true;
+					}
+				}
+
+			// Chrome desktop doesn't need FastClick (issue #15)
+			} else {
+				return true;
+			}
+		}
+
+		if (deviceIsBlackBerry10) {
+			blackberryVersion = navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
+
+			// BlackBerry 10.3+ does not require Fastclick library.
+			// https://github.com/ftlabs/fastclick/issues/251
+			if (blackberryVersion[1] >= 10 && blackberryVersion[2] >= 3) {
+				metaViewport = document.querySelector('meta[name=viewport]');
+
+				if (metaViewport) {
+					// user-scalable=no eliminates click delay.
+					if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+						return true;
+					}
+					// width=device-width (or less than device-width) eliminates click delay.
+					if (document.documentElement.scrollWidth <= window.outerWidth) {
+						return true;
+					}
+				}
+			}
+		}
+
+		// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)
+		if (layer.style.msTouchAction === 'none' || layer.style.touchAction === 'manipulation') {
+			return true;
+		}
+
+		// Firefox version - zero for other browsers
+		firefoxVersion = +(/Firefox\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
+
+		if (firefoxVersion >= 27) {
+			// Firefox 27+ does not have tap delay if the content is not zoomable - https://bugzilla.mozilla.org/show_bug.cgi?id=922896
+
+			metaViewport = document.querySelector('meta[name=viewport]');
+			if (metaViewport && (metaViewport.content.indexOf('user-scalable=no') !== -1 || document.documentElement.scrollWidth <= window.outerWidth)) {
+				return true;
+			}
+		}
+
+		// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version
+		// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx
+		if (layer.style.touchAction === 'none' || layer.style.touchAction === 'manipulation') {
+			return true;
+		}
+
+		return false;
+	};
+
+
+	/**
+	 * Factory method for creating a FastClick object
+	 *
+	 * @param {Element} layer The layer to listen on
+	 * @param {Object} [options={}] The options to override the defaults
+	 */
+	FastClick.attach = function(layer, options) {
+		return new FastClick(layer, options);
+	};
+
+
+	if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
+
+		// AMD. Register as an anonymous module.
+		define(function() {
+			return FastClick;
+		});
+	} else if (typeof module !== 'undefined' && module.exports) {
+		module.exports = FastClick.attach;
+		module.exports.FastClick = FastClick;
+	} else {
+		window.FastClick = FastClick;
+	}
+}());
 
 },{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js":[function(require,module,exports){
 (function (global){
@@ -11950,6 +12804,85 @@ process.umask = function() { return 0; };
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js":[function(require,module,exports){
+(function (global){
+'use strict';
+
+var el;
+
+if(!!global.document){
+  el = global.document.createElement('div');
+}
+
+var prefixes = ["ms", "Moz", "Webkit", "O"];
+var properties = [
+  'userSelect',
+  'transform',
+  'transition',
+  'transformOrigin',
+  'transformStyle',
+  'transitionProperty',
+  'transitionDuration',
+  'transitionTimingFunction',
+  'transitionDelay',
+  'borderImage',
+  'borderImageSlice',
+  'boxShadow',
+  'backgroundClip',
+  'backfaceVisibility',
+  'perspective',
+  'perspectiveOrigin',
+  'animation',
+  'animationDuration',
+  'animationName',
+  'animationDelay',
+  'animationDirection',
+  'animationIterationCount',
+  'animationTimingFunction',
+  'animationPlayState',
+  'animationFillMode',
+  'appearance'
+];
+
+function GetVendorPrefix(property) {
+  if(properties.indexOf(property) == -1 || !global.document || typeof el.style[property] !== 'undefined'){
+    return property;
+  }
+
+  property = property[0].toUpperCase() + property.slice(1);
+  var temp;
+
+  for(var i = 0; i < prefixes.length; i++){
+    temp = prefixes[i] + property;
+    if(typeof el.style[temp] !== 'undefined'){
+      prefixes = [prefixes[i]]; // we only need to check this one prefix from now on.
+      return temp;
+    }
+  }
+  return property[0].toLowerCase() + property.slice(1);
+}
+
+
+module.exports = (function(){
+  var cache = {};
+  return function(obj){
+    if(!global.document){
+      return obj;
+    }
+
+    var result = {};
+
+    for(var key in obj){
+      if(cache[key] === undefined){
+        cache[key] = GetVendorPrefix(key);
+      }
+      result[cache[key]] = obj[key];
+    }
+
+    return result;
+  };
+})();
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/Cancellation.js":[function(require,module,exports){
 "use strict";
 
@@ -14726,7 +15659,531 @@ exports.isBuffer = function (obj) {
         obj.constructor.isBuffer(obj));
 };
 
-},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
+},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ * @providesModule ResponderEventPlugin
+ */
+
+"use strict";
+
+var EventConstants = require('react/lib/EventConstants');
+var EventPluginUtils = require('react/lib/EventPluginUtils');
+var EventPropagators = require('react/lib/EventPropagators');
+var SyntheticEvent = require('react/lib/SyntheticEvent');
+
+var accumulateInto = require('react/lib/accumulateInto');
+var keyOf = require('react/lib/keyOf');
+
+var isStartish = EventPluginUtils.isStartish;
+var isMoveish = EventPluginUtils.isMoveish;
+var isEndish = EventPluginUtils.isEndish;
+var executeDirectDispatch = EventPluginUtils.executeDirectDispatch;
+var hasDispatches = EventPluginUtils.hasDispatches;
+var executeDispatchesInOrderStopAtTrue =
+  EventPluginUtils.executeDispatchesInOrderStopAtTrue;
+
+/**
+ * ID of element that should respond to touch/move types of interactions, as
+ * indicated explicitly by relevant callbacks.
+ */
+var responderID = null;
+var isPressing = false;
+
+var eventTypes = {
+  /**
+   * On a `touchStart`/`mouseDown`, is it desired that this element become the
+   * responder?
+   */
+  startShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onStartShouldSetResponder: null}),
+      captured: keyOf({onStartShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * On a `scroll`, is it desired that this element become the responder? This
+   * is usually not needed, but should be used to retroactively infer that a
+   * `touchStart` had occured during momentum scroll. During a momentum scroll,
+   * a touch start will be immediately followed by a scroll event if the view is
+   * currently scrolling.
+   */
+  scrollShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onScrollShouldSetResponder: null}),
+      captured: keyOf({onScrollShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * On a `touchMove`/`mouseMove`, is it desired that this element become the
+   * responder?
+   */
+  moveShouldSetResponder: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onMoveShouldSetResponder: null}),
+      captured: keyOf({onMoveShouldSetResponderCapture: null})
+    }
+  },
+
+  /**
+   * Direct responder events dispatched directly to responder. Do not bubble.
+   */
+  responderMove: {registrationName: keyOf({onResponderMove: null})},
+  responderRelease: {registrationName: keyOf({onResponderRelease: null})},
+  responderTerminationRequest: {
+    registrationName: keyOf({onResponderTerminationRequest: null})
+  },
+  responderGrant: {registrationName: keyOf({onResponderGrant: null})},
+  responderReject: {registrationName: keyOf({onResponderReject: null})},
+  responderTerminate: {registrationName: keyOf({onResponderTerminate: null})}
+};
+
+/**
+ * Performs negotiation between any existing/current responder, checks to see if
+ * any new entity is interested in becoming responder, performs that handshake
+ * and returns any events that must be emitted to notify the relevant parties.
+ *
+ * A note about event ordering in the `EventPluginHub`.
+ *
+ * Suppose plugins are injected in the following order:
+ *
+ * `[R, S, C]`
+ *
+ * To help illustrate the example, assume `S` is `SimpleEventPlugin` (for
+ * `onClick` etc) and `R` is `ResponderEventPlugin`.
+ *
+ * "Deferred-Dispatched Events":
+ *
+ * - The current event plugin system will traverse the list of injected plugins,
+ *   in order, and extract events by collecting the plugin's return value of
+ *   `extractEvents()`.
+ * - These events that are returned from `extractEvents` are "deferred
+ *   dispatched events".
+ * - When returned from `extractEvents`, deferred-dispatched events contain an
+ *   "accumulation" of deferred dispatches.
+ * - These deferred dispatches are accumulated/collected before they are
+ *   returned, but processed at a later time by the `EventPluginHub` (hence the
+ *   name deferred).
+ *
+ * In the process of returning their deferred-dispatched events, event plugins
+ * themselves can dispatch events on-demand without returning them from
+ * `extractEvents`. Plugins might want to do this, so that they can use event
+ * dispatching as a tool that helps them decide which events should be extracted
+ * in the first place.
+ *
+ * "On-Demand-Dispatched Events":
+ *
+ * - On-demand-dispatched events are not returned from `extractEvents`.
+ * - On-demand-dispatched events are dispatched during the process of returning
+ *   the deferred-dispatched events.
+ * - They should not have side effects.
+ * - They should be avoided, and/or eventually be replaced with another
+ *   abstraction that allows event plugins to perform multiple "rounds" of event
+ *   extraction.
+ *
+ * Therefore, the sequence of event dispatches becomes:
+ *
+ * - `R`s on-demand events (if any)   (dispatched by `R` on-demand)
+ * - `S`s on-demand events (if any)   (dispatched by `S` on-demand)
+ * - `C`s on-demand events (if any)   (dispatched by `C` on-demand)
+ * - `R`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ * - `S`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ * - `C`s extracted events (if any)   (dispatched by `EventPluginHub`)
+ *
+ * In the case of `ResponderEventPlugin`: If the `startShouldSetResponder`
+ * on-demand dispatch returns `true` (and some other details are satisfied) the
+ * `onResponderGrant` deferred dispatched event is returned from
+ * `extractEvents`. The sequence of dispatch executions in this case
+ * will appear as follows:
+ *
+ * - `startShouldSetResponder` (`ResponderEventPlugin` dispatches on-demand)
+ * - `touchStartCapture`       (`EventPluginHub` dispatches as usual)
+ * - `touchStart`              (`EventPluginHub` dispatches as usual)
+ * - `responderGrant/Reject`   (`EventPluginHub` dispatches as usual)
+ *
+ * @param {string} topLevelType Record from `EventConstants`.
+ * @param {string} topLevelTargetID ID of deepest React rendered element.
+ * @param {object} nativeEvent Native browser event.
+ * @return {*} An accumulation of synthetic events.
+ */
+function setResponderAndExtractTransfer(
+    topLevelType,
+    topLevelTargetID,
+    nativeEvent) {
+  var shouldSetEventType =
+    isStartish(topLevelType) ? eventTypes.startShouldSetResponder :
+    isMoveish(topLevelType) ? eventTypes.moveShouldSetResponder :
+    eventTypes.scrollShouldSetResponder;
+
+  var bubbleShouldSetFrom = responderID || topLevelTargetID;
+  var shouldSetEvent = SyntheticEvent.getPooled(
+    shouldSetEventType,
+    bubbleShouldSetFrom,
+    nativeEvent
+  );
+  EventPropagators.accumulateTwoPhaseDispatches(shouldSetEvent);
+  var wantsResponderID = executeDispatchesInOrderStopAtTrue(shouldSetEvent);
+  if (!shouldSetEvent.isPersistent()) {
+    shouldSetEvent.constructor.release(shouldSetEvent);
+  }
+
+  if (!wantsResponderID || wantsResponderID === responderID) {
+    return null;
+  }
+  var extracted;
+  var grantEvent = SyntheticEvent.getPooled(
+    eventTypes.responderGrant,
+    wantsResponderID,
+    nativeEvent
+  );
+
+  EventPropagators.accumulateDirectDispatches(grantEvent);
+  if (responderID) {
+    var terminationRequestEvent = SyntheticEvent.getPooled(
+      eventTypes.responderTerminationRequest,
+      responderID,
+      nativeEvent
+    );
+    EventPropagators.accumulateDirectDispatches(terminationRequestEvent);
+    var shouldSwitch = !hasDispatches(terminationRequestEvent) ||
+      executeDirectDispatch(terminationRequestEvent);
+    if (!terminationRequestEvent.isPersistent()) {
+      terminationRequestEvent.constructor.release(terminationRequestEvent);
+    }
+
+    if (shouldSwitch) {
+      var terminateType = eventTypes.responderTerminate;
+      var terminateEvent = SyntheticEvent.getPooled(
+        terminateType,
+        responderID,
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(terminateEvent);
+      extracted = accumulateInto(extracted, [grantEvent, terminateEvent]);
+      responderID = wantsResponderID;
+    } else {
+      var rejectEvent = SyntheticEvent.getPooled(
+        eventTypes.responderReject,
+        wantsResponderID,
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(rejectEvent);
+      extracted = accumulateInto(extracted, rejectEvent);
+    }
+  } else {
+    extracted = accumulateInto(extracted, grantEvent);
+    responderID = wantsResponderID;
+  }
+  return extracted;
+}
+
+/**
+ * A transfer is a negotiation between a currently set responder and the next
+ * element to claim responder status. Any start event could trigger a transfer
+ * of responderID. Any move event could trigger a transfer, so long as there is
+ * currently a responder set (in other words as long as the user is pressing
+ * down).
+ *
+ * @param {string} topLevelType Record from `EventConstants`.
+ * @return {boolean} True if a transfer of responder could possibly occur.
+ */
+function canTriggerTransfer(topLevelType) {
+  return topLevelType === EventConstants.topLevelTypes.topScroll ||
+         isStartish(topLevelType) ||
+         (isPressing && isMoveish(topLevelType));
+}
+
+/**
+ * Event plugin for formalizing the negotiation between claiming locks on
+ * receiving touches.
+ */
+var ResponderEventPlugin = {
+
+  getResponderID: function() {
+    return responderID;
+  },
+
+  eventTypes: eventTypes,
+
+  /**
+   * @param {string} topLevelType Record from `EventConstants`.
+   * @param {DOMEventTarget} topLevelTarget The listening component root node.
+   * @param {string} topLevelTargetID ID of `topLevelTarget`.
+   * @param {object} nativeEvent Native browser event.
+   * @return {*} An accumulation of synthetic events.
+   * @see {EventPluginHub.extractEvents}
+   */
+  extractEvents: function(
+      topLevelType,
+      topLevelTarget,
+      topLevelTargetID,
+      nativeEvent) {
+    var extracted;
+    // Must have missed an end event - reset the state here.
+    if (responderID && isStartish(topLevelType)) {
+      responderID = null;
+    }
+    if (isStartish(topLevelType)) {
+      isPressing = true;
+    } else if (isEndish(topLevelType)) {
+      isPressing = false;
+    }
+    if (canTriggerTransfer(topLevelType)) {
+      var transfer = setResponderAndExtractTransfer(
+        topLevelType,
+        topLevelTargetID,
+        nativeEvent
+      );
+      if (transfer) {
+        extracted = accumulateInto(extracted, transfer);
+      }
+    }
+    // Now that we know the responder is set correctly, we can dispatch
+    // responder type events (directly to the responder).
+    var type = isMoveish(topLevelType) ? eventTypes.responderMove :
+      isEndish(topLevelType) ? eventTypes.responderRelease :
+      isStartish(topLevelType) ? eventTypes.responderStart : null;
+    if (type) {
+      var gesture = SyntheticEvent.getPooled(
+        type,
+        responderID || '',
+        nativeEvent
+      );
+      EventPropagators.accumulateDirectDispatches(gesture);
+      extracted = accumulateInto(extracted, gesture);
+    }
+    if (type === eventTypes.responderRelease) {
+      responderID = null;
+    }
+    return extracted;
+  }
+
+};
+
+module.exports = ResponderEventPlugin;
+
+},{"react/lib/EventConstants":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticEvent":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/SyntheticEvent.js","react/lib/accumulateInto":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/accumulateInto.js","react/lib/keyOf":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/keyOf.js"}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/TapEventPlugin.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014 Facebook, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @providesModule TapEventPlugin
+ * @typechecks static-only
+ */
+
+"use strict";
+
+var EventConstants = require('react/lib/EventConstants');
+var EventPluginUtils = require('react/lib/EventPluginUtils');
+var EventPropagators = require('react/lib/EventPropagators');
+var SyntheticUIEvent = require('react/lib/SyntheticUIEvent');
+var TouchEventUtils = require('./TouchEventUtils');
+var ViewportMetrics = require('react/lib/ViewportMetrics');
+
+var keyOf = require('react/lib/keyOf');
+var topLevelTypes = EventConstants.topLevelTypes;
+
+var isStartish = EventPluginUtils.isStartish;
+var isEndish = EventPluginUtils.isEndish;
+
+var isTouch = function(topLevelType) {
+  var touchTypes = [
+    topLevelTypes.topTouchCancel,
+    topLevelTypes.topTouchEnd,
+    topLevelTypes.topTouchStart,
+    topLevelTypes.topTouchMove
+  ];
+  return touchTypes.indexOf(topLevelType) >= 0;
+}
+
+/**
+ * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
+ * in order to still be considered a 'tap' event.
+ */
+var tapMoveThreshold = 10;
+var ignoreMouseThreshold = 750;
+var startCoords = {x: null, y: null};
+var lastTouchEvent = null;
+
+var Axis = {
+  x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
+  y: {page: 'pageY', client: 'clientY', envScroll: 'currentPageScrollTop'}
+};
+
+function getAxisCoordOfEvent(axis, nativeEvent) {
+  var singleTouch = TouchEventUtils.extractSingleTouch(nativeEvent);
+  if (singleTouch) {
+    return singleTouch[axis.page];
+  }
+  return axis.page in nativeEvent ?
+    nativeEvent[axis.page] :
+    nativeEvent[axis.client] + ViewportMetrics[axis.envScroll];
+}
+
+function getDistance(coords, nativeEvent) {
+  var pageX = getAxisCoordOfEvent(Axis.x, nativeEvent);
+  var pageY = getAxisCoordOfEvent(Axis.y, nativeEvent);
+  return Math.pow(
+    Math.pow(pageX - coords.x, 2) + Math.pow(pageY - coords.y, 2),
+    0.5
+  );
+}
+
+var dependencies = [
+  topLevelTypes.topMouseDown,
+  topLevelTypes.topMouseMove,
+  topLevelTypes.topMouseUp
+];
+
+if (EventPluginUtils.useTouchEvents) {
+  dependencies.push(
+    topLevelTypes.topTouchEnd,
+    topLevelTypes.topTouchStart,
+    topLevelTypes.topTouchMove
+  );
+}
+
+var eventTypes = {
+  touchTap: {
+    phasedRegistrationNames: {
+      bubbled: keyOf({onTouchTap: null}),
+      captured: keyOf({onTouchTapCapture: null})
+    },
+    dependencies: dependencies
+  }
+};
+
+var TapEventPlugin = {
+
+  tapMoveThreshold: tapMoveThreshold,
+
+  ignoreMouseThreshold: ignoreMouseThreshold,
+
+  eventTypes: eventTypes,
+
+  /**
+   * @param {string} topLevelType Record from `EventConstants`.
+   * @param {DOMEventTarget} topLevelTarget The listening component root node.
+   * @param {string} topLevelTargetID ID of `topLevelTarget`.
+   * @param {object} nativeEvent Native browser event.
+   * @return {*} An accumulation of synthetic events.
+   * @see {EventPluginHub.extractEvents}
+   */
+  extractEvents: function(
+      topLevelType,
+      topLevelTarget,
+      topLevelTargetID,
+      nativeEvent) {
+
+    if (isTouch(topLevelType)) {
+      lastTouchEvent = nativeEvent.timeStamp;
+    } else {
+      if (lastTouchEvent && (nativeEvent.timeStamp - lastTouchEvent) < ignoreMouseThreshold) {
+        return null;
+      }
+    }
+
+    if (!isStartish(topLevelType) && !isEndish(topLevelType)) {
+      return null;
+    }
+    var event = null;
+    var distance = getDistance(startCoords, nativeEvent);
+    if (isEndish(topLevelType) && distance < tapMoveThreshold) {
+      event = SyntheticUIEvent.getPooled(
+        eventTypes.touchTap,
+        topLevelTargetID,
+        nativeEvent
+      );
+    }
+    if (isStartish(topLevelType)) {
+      startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
+      startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
+    } else if (isEndish(topLevelType)) {
+      startCoords.x = 0;
+      startCoords.y = 0;
+    }
+    EventPropagators.accumulateTwoPhaseDispatches(event);
+    return event;
+  }
+
+};
+
+module.exports = TapEventPlugin;
+},{"./TouchEventUtils":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/TouchEventUtils.js","react/lib/EventConstants":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventConstants.js","react/lib/EventPluginUtils":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventPluginUtils.js","react/lib/EventPropagators":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventPropagators.js","react/lib/SyntheticUIEvent":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/SyntheticUIEvent.js","react/lib/ViewportMetrics":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/ViewportMetrics.js","react/lib/keyOf":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/keyOf.js"}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/TouchEventUtils.js":[function(require,module,exports){
+/**
+ * Copyright 2013-2014 Facebook, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @providesModule TouchEventUtils
+ */
+
+var TouchEventUtils = {
+  /**
+   * Utility function for common case of extracting out the primary touch from a
+   * touch event.
+   * - `touchEnd` events usually do not have the `touches` property.
+   *   http://stackoverflow.com/questions/3666929/
+   *   mobile-sarai-touchend-event-not-firing-when-last-touch-is-removed
+   *
+   * @param {Event} nativeEvent Native event that may or may not be a touch.
+   * @return {TouchesObject?} an object with pageX and pageY or null.
+   */
+  extractSingleTouch: function(nativeEvent) {
+    var touches = nativeEvent.touches;
+    var changedTouches = nativeEvent.changedTouches;
+    var hasTouches = touches && touches.length > 0;
+    var hasChangedTouches = changedTouches && changedTouches.length > 0;
+
+    return !hasTouches && hasChangedTouches ? changedTouches[0] :
+           hasTouches ? touches[0] :
+           nativeEvent;
+  }
+};
+
+module.exports = TouchEventUtils;
+
+},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/injectTapEventPlugin.js":[function(require,module,exports){
+module.exports = function injectTapEventPlugin () {
+  var React = require("react");
+  React.initializeTouchEvents(true);
+
+  require('react/lib/EventPluginHub').injection.injectEventPluginsByName({
+    "ResponderEventPlugin": require('./ResponderEventPlugin.js'),
+    "TapEventPlugin":       require('./TapEventPlugin.js')
+  });
+};
+
+},{"./ResponderEventPlugin.js":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/ResponderEventPlugin.js","./TapEventPlugin.js":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-tap-event-plugin/src/TapEventPlugin.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react/lib/EventPluginHub":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/EventPluginHub.js"}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/AutoFocusMixin.js":[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.

@@ -1,12 +1,13 @@
 React = require("react")
 {Link} = require("react-router")
 _ = require("lodash")
+prefix = require("react-prefixr")
 
 module.exports = React.createClass
   getInitialState: -> 
     menuActive: false
     mounted: false
-  toggleMenuDelay: ->
+  toggleMenuDelayed: ->
     setTimeout @toggleMenu, 100
   componentDidMount: ->
     @setState mounted: true
@@ -16,7 +17,7 @@ module.exports = React.createClass
     @setState menuActive: !@state.menuActive
   render: ->
     transformLeft = (if @state.menuActive then 0 else -150)
-    toggle = <a onClick={@toggleMenu} className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />
+    toggle = <a onTouchTap={@toggleMenu} className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />
     circle = (radius) =>
       width: radius*2
       height: radius*2
@@ -30,10 +31,10 @@ module.exports = React.createClass
       opacity: (if @state.menuActive then 1 else 0)
     <div style={height: 10}>
         {toggle}
-        <div style={transform: "translate3d(#{transformLeft}px,0,0)"} className="left-menu">
-            <Link style={circle(30)} onClick={@toggleMenuDelay} to="/" >    Home</Link>
-            <Link style={circle(40)} onClick={@toggleMenuDelay} to="/" >    Writing</Link>
-            <Link style={circle(60)} onClick={@toggleMenuDelay} to="/" >    Photography</Link>
-            <Link style={circle(50)} onClick={@toggleMenuDelay} to="meta" > About Matt</Link>
+        <div style={prefix({transform: "translate3d(#{transformLeft}px,0,0)"})} className="left-menu">
+            <Link style={circle(30)} onTouchTap={@toggleMenuDelayed} to="/" >    Home</Link>
+            <Link style={circle(40)} onTouchTap={@toggleMenuDelayed} to="/" >    Writing</Link>
+            <Link style={circle(60)} onTouchTap={@toggleMenuDelayed} to="/" >    Photography</Link>
+            <Link style={circle(50)} onTouchTap={@toggleMenuDelayed} to="meta" > About Matt</Link>
         </div>
     </div>

@@ -1,4 +1,5 @@
 React = require("react")
+prefix = require("react-prefixr")
 
 module.exports = React.createClass
   getInitialState: -> 
@@ -12,16 +13,18 @@ module.exports = React.createClass
   handleFirstImageLoaded: (e) ->
     @setState height: @refs.firstImage.getDOMNode().height
   move: (positions) ->
-    =>
+    (e) =>
+      e?.stopPropagation()
       if @state.position == @state.total and positions == 1
         newState = position: 0
       if @state.position == 0 and positions == -1
         newState = position: @state.total
       @setState newState || position: @state.position + positions
   render: ->
-    innerSliderStyle = 
+    transform = "translate3d(#{parseInt -(@state.position * @state.width)}px, 0, 0)" 
+    innerSliderStyle = prefix
       height: @state.height
-      transform: "translate3d(#{parseInt -(@state.position * @state.width)}px, 0, 0)" 
+      transform: transform
     <div>
     <div style={{height: @state.height}} className="image-slider" ref="slider" >
       <div onClick={@move(1)} style={innerSliderStyle} className="inner-slider">
@@ -46,6 +49,6 @@ module.exports = React.createClass
     </div>
     <div className="slider-nav">
       <span style={float: "right" } onClick={@move(1)} className="slider-move icon-uniE720" />
-      <span style={float: "left" } onClick={@move(-1)} className="slider-move icon-uniE71F" />
+      <span style={float: "left" }  onClick={@move(-1)} className="slider-move icon-uniE71F" />
     </div>
     </div>

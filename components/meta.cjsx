@@ -3,13 +3,12 @@ React = require("react")
 
 module.exports = React.createClass
   getInitialState: -> {}
-  handleClick: -> @setState message: "Clicked"
   render: ->
     <div>
 
     <h3 style={{marginTop:-5}}>Meta</h3>
 
-    <div className="paper thick" onClick={@handleClick}>
+    <div className="paper thick" >
       <h2>{@state.message||"About Matt"}</h2>
       <p>For six years, Matt has explored creativity and collaboration through a practice of design and computer programming while learning at some of the world’s most interesting institutions for collaborative education (<a href="http://www.hackerschool.com" >Hacker School</a>), small-team innovation (<a href="http://www.ycombinator.com" >Y Combinator</a>), and interdisciplinary development of arts and leadership (<a href="http://www.banffcentre.ca" >The Banff Centre</a>).</p>
       <p>
