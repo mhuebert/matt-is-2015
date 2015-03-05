@@ -16,25 +16,35 @@ module.exports = React.createClass
   toggleMenu: ->
     @setState menuActive: !@state.menuActive
   render: ->
-    transformLeft = (if @state.menuActive then 0 else -150)
+    transformLeft = (if @state.menuActive then 50 else 0)
     toggle = <a onTouchTap={@toggleMenu} className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />
     circle = (radius) =>
       width: radius*2
       height: radius*2
       background: "white"
-      boxShadow: "0 0 5px rgba(0,0,0,0.2)"
+      background:"rgba(0,0,0,0.2)"
+      marginTop: -20
       textAlign: "center"
       borderRadius: radius
-      lineHeight: radius*2+"px"
-      marginLeft: @random()*40 + 10
-      marginTop: @random()*20
+      paddingTop: 1
+      lineHeight: radius*2*0.8+"px"
       opacity: (if @state.menuActive then 1 else 0)
+      transform: "scale(#{(if @state.menuActive then 1 else 0)}) translate3d(#{@random()*150}px, #{@random()*20}px, 0) translateZ(0)"
+      # transform: "translate3d(#{@random()*140}px, #{@random()*20}px, 0)"
     <div style={height: 10}>
         {toggle}
-        <div style={prefix({transform: "translate3d(#{transformLeft}px,0,0)"})} className="left-menu">
-            <Link style={circle(30)} onTouchTap={@toggleMenuDelayed} to="/" >    Home</Link>
-            <Link style={circle(40)} onTouchTap={@toggleMenuDelayed} to="/" >    Writing</Link>
-            <Link style={circle(60)} onTouchTap={@toggleMenuDelayed} to="/" >    Photography</Link>
-            <Link style={circle(50)} onTouchTap={@toggleMenuDelayed} to="meta" > About Matt</Link>
+        <div className="left-menu">
+            <div className="link-container" style={prefix(circle(40))}>
+              <Link onTouchTap={@toggleMenuDelayed} to="/" >Home</Link>
+            </div>
+            <div className="link-container" style={prefix(circle(50))}>
+              <Link onTouchTap={@toggleMenuDelayed} to="/" >    Writing</Link>
+            </div>
+            <div className="link-container" style={prefix(circle(70))} >
+              <Link onTouchTap={@toggleMenuDelayed} to="/" >    Photography</Link>
+            </div>
+            <div className="link-container" style={prefix(circle(60))} >
+              <Link onTouchTap={@toggleMenuDelayed} to="meta" > About Matt</Link>
+            </div>
         </div>
     </div>

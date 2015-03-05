@@ -26,23 +26,26 @@ body
   box-shadow 0 0 5px rgba(0,0,0,0.15)
 
 .left-menu
-  width 150px
+  width 0
   position absolute
-  transform translate3d(-150px,0,0)
-  height 100%
   transition all ease-out 0.35s
   z-index 100
   top 40px
-  // background rgba(255,255,255,0.95)
-  // box-shadow 0 0 5px rgba(0,0,0,0.15)
+  .link-container
+    transition all ease-out 0.35s
   a
     display block
     white-space nowrap
     overflow hidden
     color black
-    transition all ease-out 0.35s
-    // position absolute
-    // margin-left 50%
+    box-shadow: 0 0 5px rgba(0,0,0,0.2)
+    display: block
+    width: 80%
+    height:80%
+    background: white
+    border-radius: 50%
+    margin: 10%
+    // transform scale(0)
 .black-screen
   background rgba(0,0,0,0.7)
   width: 100%

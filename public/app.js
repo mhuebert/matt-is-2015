@@ -197,7 +197,7 @@ module.exports = React.createClass({
   },
   render: function() {
     var circle, toggle, transformLeft;
-    transformLeft = (this.state.menuActive ? 0 : -150);
+    transformLeft = (this.state.menuActive ? 50 : 0);
     toggle = React.createElement("a", {
       "onTouchTap": this.toggleMenu,
       "className": "icon-uniE6B2 icon",
@@ -213,13 +213,14 @@ module.exports = React.createClass({
           width: radius * 2,
           height: radius * 2,
           background: "white",
-          boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+          background: "rgba(0,0,0,0.2)",
+          marginTop: -20,
           textAlign: "center",
           borderRadius: radius,
-          lineHeight: radius * 2 + "px",
-          marginLeft: _this.random() * 40 + 10,
-          marginTop: _this.random() * 20,
-          opacity: (_this.state.menuActive ? 1 : 0)
+          paddingTop: 1,
+          lineHeight: radius * 2 * 0.8 + "px",
+          opacity: (_this.state.menuActive ? 1 : 0),
+          transform: "scale(" + (_this.state.menuActive ? 1 : 0) + ") translate3d(" + (_this.random() * 150) + "px, " + (_this.random() * 20) + "px, 0) translateZ(0)"
         };
       };
     })(this);
@@ -228,27 +229,32 @@ module.exports = React.createClass({
         height: 10
       }
     }, toggle, React.createElement("div", {
-      "style": prefix({
-        transform: "translate3d(" + transformLeft + "px,0,0)"
-      }),
       "className": "left-menu"
+    }, React.createElement("div", {
+      "className": "link-container",
+      "style": prefix(circle(40))
     }, React.createElement(Link, {
-      "style": circle(30),
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "    Home"), React.createElement(Link, {
-      "style": circle(40),
+    }, "Home")), React.createElement("div", {
+      "className": "link-container",
+      "style": prefix(circle(50))
+    }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "    Writing"), React.createElement(Link, {
-      "style": circle(60),
+    }, "    Writing")), React.createElement("div", {
+      "className": "link-container",
+      "style": prefix(circle(70))
+    }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "    Photography"), React.createElement(Link, {
-      "style": circle(50),
+    }, "    Photography")), React.createElement("div", {
+      "className": "link-container",
+      "style": prefix(circle(60))
+    }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "meta"
-    }, " About Matt")));
+    }, " About Matt"))));
   }
 });
 
