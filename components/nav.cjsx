@@ -23,7 +23,7 @@ module.exports = React.createClass
       height: radius*2
       background: "white"
       background:"rgba(0,0,0,0.2)"
-      marginTop: -20
+      marginBottom: -((@random()*(radius-10)))-10
       textAlign: "center"
       borderRadius: radius
       paddingTop: 1
@@ -33,18 +33,18 @@ module.exports = React.createClass
       # transform: "translate3d(#{@random()*140}px, #{@random()*20}px, 0)"
     <div style={height: 10}>
         {toggle}
-        <div className="left-menu">
-            <div className="link-container" style={prefix(circle(40))}>
+        <ul className="left-menu">
+            <li className="link-container" style={prefix(circle(40))}>
               <Link onTouchTap={@toggleMenuDelayed} to="/" >Home</Link>
-            </div>
-            <div className="link-container" style={prefix(circle(50))}>
+            </li>
+            <li className="link-container" style={prefix(circle(50))}>
               <Link onTouchTap={@toggleMenuDelayed} to="/" >    Writing</Link>
-            </div>
-            <div className="link-container" style={prefix(circle(70))} >
+            </li>
+            <li className="link-container" style={prefix(circle(70))} >
               <Link onTouchTap={@toggleMenuDelayed} to="/" >    Photography</Link>
-            </div>
-            <div className="link-container" style={prefix(circle(60))} >
+            </li>
+            <li className="link-container" style={prefix(circle(60))} >
               <Link onTouchTap={@toggleMenuDelayed} to="meta" > About Matt</Link>
-            </div>
-        </div>
+            </li>
+        </ul>
     </div>

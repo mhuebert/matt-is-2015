@@ -214,7 +214,7 @@ module.exports = React.createClass({
           height: radius * 2,
           background: "white",
           background: "rgba(0,0,0,0.2)",
-          marginTop: -20,
+          marginBottom: -(_this.random() * (radius - 10)) - 10,
           textAlign: "center",
           borderRadius: radius,
           paddingTop: 1,
@@ -228,27 +228,27 @@ module.exports = React.createClass({
       "style": {
         height: 10
       }
-    }, toggle, React.createElement("div", {
+    }, toggle, React.createElement("ul", {
       "className": "left-menu"
-    }, React.createElement("div", {
+    }, React.createElement("li", {
       "className": "link-container",
       "style": prefix(circle(40))
     }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "Home")), React.createElement("div", {
+    }, "Home")), React.createElement("li", {
       "className": "link-container",
       "style": prefix(circle(50))
     }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "    Writing")), React.createElement("div", {
+    }, "    Writing")), React.createElement("li", {
       "className": "link-container",
       "style": prefix(circle(70))
     }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "/"
-    }, "    Photography")), React.createElement("div", {
+    }, "    Photography")), React.createElement("li", {
       "className": "link-container",
       "style": prefix(circle(60))
     }, React.createElement(Link, {
