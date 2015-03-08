@@ -7,7 +7,8 @@ module.exports = React.createClass
       <div className="paper text-small" >
         <h2><Link to="/">Matt Huebert</Link></h2>
         <p>
-          Hey—welcome to my corner of the web. I’m a designer and programmer with a special interest in creative, cross-field collaboration.
+          Hey—welcome to my corner of the web. I’m a designer and programmer with a special interest in creative, cross-field collaboration. 
+          <Link to="/meta">Bio ›</Link>
         </p>
         <hr />
         <h3>Communication</h3>

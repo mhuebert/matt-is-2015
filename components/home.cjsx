@@ -1,6 +1,7 @@
 React = require("react")
 {Link} = require("react-router")
 Photos = require("./photos")
+WritingIndex = require("./writing").Index
 
 module.exports = React.createClass
   render: ->
@@ -11,8 +12,6 @@ module.exports = React.createClass
       </div>
 
 
-      <h3 >Writing</h3>
-      <div className="paper thick">
-        Paper
-      </div>
+      <h3 ><Link to="/writing">Writing</Link></h3>
+      <WritingIndex />
     </div>

@@ -17,6 +17,7 @@ cookieParser = require('cookie-parser')
 bodyParser = require('body-parser')
 
 app = express()
+app.use "/posts/", express.static(__dirname + "/posts")
 app.use express.static(__dirname + "/public")
 app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(logger('dev'))

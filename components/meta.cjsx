@@ -6,7 +6,7 @@ module.exports = React.createClass
   render: ->
     <div>
 
-    <h3 style={{marginTop:-5}}>Meta</h3>
+    <h3 style={{marginTop:-5}}><Link to="/meta">Meta</Link></h3>
 
     <div className="paper thick" >
       <h2>{@state.message||"About Matt"}</h2>
