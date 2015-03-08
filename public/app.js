@@ -518,7 +518,7 @@ Markdown = React.createClass({
   }
 });
 
-posts = ["The Trudge", "Trying to Matter", "Kurt Cobain on Time", "Rewrite a Rant"];
+posts = ["Trying to Matter", "Kurt Cobain on Time", "Rewrite a Rant", "The Trudge"];
 
 this.Index = React.createClass({
   render: function() {

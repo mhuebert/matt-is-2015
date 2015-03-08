@@ -16,10 +16,10 @@ Markdown = React.createClass
     html = marked(@props.children)
     <div dangerouslySetInnerHTML={{__html: html}} ></div>
 
-posts = [ "The Trudge"
-          "Trying to Matter"
+posts = [ "Trying to Matter"
           "Kurt Cobain on Time"
           "Rewrite a Rant"
+          "The Trudge"
         ]
 
 
