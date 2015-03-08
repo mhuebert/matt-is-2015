@@ -546,12 +546,19 @@ this.Post = Post = React.createClass({
       url = prefix + ("/posts/" + state.params.slug + ".md");
       return r.get(url, (function(_this) {
         return function(data, textStatus, xhr) {
-          return callback(data.text);
+          return callback({
+            slug: state.params.slug,
+            body: data.text
+          });
         };
       })(this));
     }
   },
   componentDidMount: function() {
+    var _ref, _ref1;
+    if (this.getParams().slug === (((_ref = this.state.writingPost) != null ? _ref.slug : void 0) || ((_ref1 = this.props.writingPost) != null ? _ref1.slug : void 0))) {
+      return;
+    }
     return Post.fetchData({
       params: this.getParams()
     }, (function(_this) {
@@ -563,11 +570,12 @@ this.Post = Post = React.createClass({
     })(this));
   },
   render: function() {
+    var _ref, _ref1;
     return React.createElement("div", null, React.createElement("h3", null, React.createElement(Link, {
       "to": "/writing"
     }, "Writing")), React.createElement("div", {
       "className": "paper thick"
-    }, React.createElement(Markdown, null, this.state.writingPost || this.props.writingPost || "Loading...")));
+    }, React.createElement(Markdown, null, ((_ref = this.state.writingPost) != null ? _ref.body : void 0) || ((_ref1 = this.props.writingPost) != null ? _ref1.body : void 0) || "Loading...")));
   }
 });
 

@@ -44,12 +44,16 @@ posts = [ "Trying to Matter"
   mixins: [Router.State]
   getInitialState: -> {}
   statics:
-    fetchData: (state, callback) ->
-        prefix = state.serverAddress || ""
-        url = prefix+"/posts/#{state.params.slug}.md"
-        r.get url, (data, textStatus, xhr) =>
-          callback(data.text)
+    fetchData: (state, callback) ->  
+      prefix = state.serverAddress || ""
+      url = prefix+"/posts/#{state.params.slug}.md"
+      r.get url, (data, textStatus, xhr) =>
+        callback
+          slug: state.params.slug
+          body: data.text
   componentDidMount: ->
+    if @getParams().slug == (@state.writingPost?.slug || @props.writingPost?.slug)
+      return
     Post.fetchData {params: @getParams()}, (data) =>
       @setState writingPost: data
   render: ->
@@ -57,7 +61,7 @@ posts = [ "Trying to Matter"
       <h3 ><Link to="/writing">Writing</Link></h3>
       <div className="paper thick">
       <Markdown>
-        {@state.writingPost || @props.writingPost || "Loading..."}
+        {@state.writingPost?.body || @props.writingPost?.body || "Loading..."}
       </Markdown>
       </div>
     </div>
