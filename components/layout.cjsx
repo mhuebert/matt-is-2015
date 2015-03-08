@@ -17,7 +17,7 @@ module.exports = React.createClass
         <Nav/>
         <div className="grid">
           <div className="unit two-thirds">
-            <RouteHandler/>
+            <RouteHandler {... @props}/>
           </div>
           <div className="unit one-third align-center">
             <Sidebar/>

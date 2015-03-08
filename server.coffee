@@ -33,19 +33,42 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 routes = require("./routes")
- 
+
+
+{Promise} = require('es6-promise')
+# function fetchData(routes, params) {
+#   var data = {};
+#   return Promise.all(routes
+#     .filter(route => route.handler.fetchData)
+#     .map(route => {
+#       return route.handler.fetchData(params).then(d => {data[route.name] = d;});
+#     })
+#   ).then(() => data);
+# }
+fetchData = (routes, params, callback) ->
+  data = {}
+  Promise.all(routes
+                  .filter (route) -> route.handler.fetchData
+                  .map (route) ->
+                    new Promise (resolve, reject) -> 
+                      route.handler.fetchData params, (d) -> 
+                        data[route.name] = d; resolve();
+                  ).then -> callback(data)
+
 app.get "*", (req, res) ->
   Router.run routes, req.url, (Handler, state) ->
-    handler = React.createElement(Handler)
-    markup = React.renderToString(handler)
-    markup += "<script> Router.run(routes, Router.HistoryLocation, function(Handler) {
-                          return React.render(React.createElement(Handler), document);
-                        });
-               </script>"
-    res.setHeader('Content-Type', 'text/html')
-    res.send(markup)
+    state.serverAddress = "http://localhost:#{server.address().port}"
+    fetchData state.routes, state, (data) ->
+      handler = React.createElement(Handler, data)
+      markup = React.renderToString(handler)
+      markup += "<script> Router.run(routes, Router.HistoryLocation, function(Handler) {
+                            return React.render(React.createElement(Handler, #{JSON.stringify(data)}), document);
+                          });
+                 </script>"
+      res.setHeader('Content-Type', 'text/html')
+      res.send(markup)
 
-app.listen (process.env.PORT || 3003)
+server = app.listen (process.env.PORT || 3003)
 fs.writeFile(__dirname + '/start.log', 'started');
 
 passport.use new local( (username, password, done) ->

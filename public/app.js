@@ -119,7 +119,7 @@ module.exports = React.createClass({
       "className": "grid"
     }, React.createElement("div", {
       "className": "unit two-thirds"
-    }, React.createElement(RouteHandler, null)), React.createElement("div", {
+    }, React.createElement(RouteHandler, React.__spread({}, this.props))), React.createElement("div", {
       "className": "unit one-third align-center"
     }, React.createElement(Sidebar, null)))));
   }
@@ -490,7 +490,7 @@ module.exports = React.createClass({
 
 
 },{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/writing.cjsx":[function(require,module,exports){
-var Link, Markdown, React, Router, marked, posts, r, slugify;
+var Link, Markdown, Post, React, Router, marked, posts, r, slugify;
 
 React = require("react");
 
@@ -536,16 +536,30 @@ this.Index = React.createClass({
   }
 });
 
-this.Post = React.createClass({
+this.Post = Post = React.createClass({
   mixins: [Router.State],
   getInitialState: function() {
     return {};
   },
+  statics: {
+    fetchData: function(state, callback) {
+      var prefix, url;
+      prefix = state.serverAddress || "";
+      url = prefix + ("/posts/" + state.params.slug + ".md");
+      return r.get(url, (function(_this) {
+        return function(data, textStatus, xhr) {
+          return callback(data.text);
+        };
+      })(this));
+    }
+  },
   componentDidMount: function() {
-    return r.get("/posts/" + (this.getParams().slug) + ".md", (function(_this) {
-      return function(data, textStatus, xhr) {
+    return Post.fetchData({
+      params: this.getParams()
+    }, (function(_this) {
+      return function(data) {
         return _this.setState({
-          markdown: data.text
+          writingPost: data
         });
       };
     })(this));
@@ -555,7 +569,7 @@ this.Post = React.createClass({
       "to": "/writing"
     }, "Writing")), React.createElement("div", {
       "className": "paper thick"
-    }, React.createElement(Markdown, null, this.state.markdown || "Loading...")));
+    }, React.createElement(Markdown, null, this.state.writingPost || this.props.writingPost || "Loading...")));
   }
 });
 
@@ -38782,6 +38796,7 @@ _ref = Router = require("react-router"), Route = _ref.Route, DefaultRoute = _ref
 _ref1 = require("./components"), Layout = _ref1.Layout, Home = _ref1.Home, Meta = _ref1.Meta, WritingPost = _ref1.WritingPost, WritingIndex = _ref1.WritingIndex;
 
 module.exports = React.createElement(Route, {
+  "name": "layout",
   "handler": Layout,
   "path": "/"
 }, React.createElement(DefaultRoute, {
@@ -38791,7 +38806,8 @@ module.exports = React.createElement(Route, {
   "name": "meta",
   "handler": Meta
 }), React.createElement(Route, {
-  "name": "writing/:slug",
+  "name": "writingPost",
+  "path": "writing/:slug",
   "handler": WritingPost
 }), React.createElement(Route, {
   "name": "writing",

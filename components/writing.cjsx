@@ -40,19 +40,25 @@ posts = [ "Trying to Matter"
     </ul>
     </div>
 
-@Post = React.createClass
+@Post = Post = React.createClass
   mixins: [Router.State]
   getInitialState: -> {}
+  statics:
+    fetchData: (state, callback) ->
+        prefix = state.serverAddress || ""
+        url = prefix+"/posts/#{state.params.slug}.md"
+        r.get url, (data, textStatus, xhr) =>
+          callback(data.text)
   componentDidMount: ->
-    r.get "/posts/#{@getParams().slug}.md", (data, textStatus, xhr) =>
-      @setState markdown: data.text
+    Post.fetchData {params: @getParams()}, (data) =>
+      @setState writingPost: data
   render: ->
     <div >
-    <h3 ><Link to="/writing">Writing</Link></h3>
-    <div className="paper thick">
-    <Markdown>
-      {@state.markdown || "Loading..."}
-    </Markdown>
-    </div>
+      <h3 ><Link to="/writing">Writing</Link></h3>
+      <div className="paper thick">
+      <Markdown>
+        {@state.writingPost || @props.writingPost || "Loading..."}
+      </Markdown>
+      </div>
     </div>
     
