@@ -19,6 +19,9 @@ Markdown = React.createClass
 posts = [ "Trying to Matter"
           "Kurt Cobain on Time"
           "Rewrite a Rant"
+          "Introducing BrainTripping"
+          "Introducing Hacking Health"
+          "Introducing Overlap.me"
           "The Trudge"
         ]
 
@@ -26,6 +29,8 @@ posts = [ "Trying to Matter"
 
 @Index = React.createClass
   render: ->
+    <div>
+    <h3 ><Link to="/writing">Writing</Link></h3>
     <ul className="writing-index paper-shadow">
     {
       posts.map (post) -> 
@@ -33,6 +38,7 @@ posts = [ "Trying to Matter"
         <li key={slug} ><Link to={"/writing/"+slug} >{post}</Link></li>
     }
     </ul>
+    </div>
 
 @Post = React.createClass
   mixins: [Router.State]

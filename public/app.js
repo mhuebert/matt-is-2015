@@ -59,9 +59,7 @@ module.exports = React.createClass({
       "style": {
         marginTop: -5
       }
-    }, "Photography"), React.createElement(Photos, null)), React.createElement("h3", null, React.createElement(Link, {
-      "to": "/writing"
-    }, "Writing")), React.createElement(WritingIndex, null));
+    }, "Photography"), React.createElement(Photos, null)), React.createElement(WritingIndex, null));
   }
 });
 
@@ -518,11 +516,13 @@ Markdown = React.createClass({
   }
 });
 
-posts = ["Trying to Matter", "Kurt Cobain on Time", "Rewrite a Rant", "The Trudge"];
+posts = ["Trying to Matter", "Kurt Cobain on Time", "Rewrite a Rant", "Introducing BrainTripping", "Introducing Hacking Health", "Introducing Overlap.me", "The Trudge"];
 
 this.Index = React.createClass({
   render: function() {
-    return React.createElement("ul", {
+    return React.createElement("div", null, React.createElement("h3", null, React.createElement(Link, {
+      "to": "/writing"
+    }, "Writing")), React.createElement("ul", {
       "className": "writing-index paper-shadow"
     }, posts.map(function(post) {
       var slug;
@@ -532,7 +532,7 @@ this.Index = React.createClass({
       }, React.createElement(Link, {
         "to": "/writing/" + slug
       }, post));
-    }));
+    })));
   }
 });
 
@@ -38773,11 +38773,11 @@ module.exports = function(arr, fn, initial){
   return curr;
 };
 },{}],"/Users/MattPro/Dropbox/Sites/mattis/routes.cjsx":[function(require,module,exports){
-var DefaultRoute, Home, Layout, Meta, React, Route, Router, WritingIndex, WritingPost, _ref, _ref1;
+var DefaultRoute, Home, Layout, Meta, React, Redirect, Route, Router, WritingIndex, WritingPost, _ref, _ref1;
 
 React = require("react");
 
-_ref = Router = require("react-router"), Route = _ref.Route, DefaultRoute = _ref.DefaultRoute;
+_ref = Router = require("react-router"), Route = _ref.Route, DefaultRoute = _ref.DefaultRoute, Redirect = _ref.Redirect;
 
 _ref1 = require("./components"), Layout = _ref1.Layout, Home = _ref1.Home, Meta = _ref1.Meta, WritingPost = _ref1.WritingPost, WritingIndex = _ref1.WritingIndex;
 
@@ -38796,6 +38796,9 @@ module.exports = React.createElement(Route, {
 }), React.createElement(Route, {
   "name": "writing",
   "handler": WritingIndex
+}), React.createElement(Redirect, {
+  "from": "introducing-braintripping",
+  "to": "writing/introducing-braintripping"
 }));
 
 

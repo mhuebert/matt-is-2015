@@ -1,5 +1,5 @@
 React = require("react")
-{ Route, DefaultRoute } = Router = require("react-router")
+{ Route, DefaultRoute, Redirect } = Router = require("react-router")
 {Layout, Home, Meta, WritingPost, WritingIndex} = require("./components")
 
 module.exports =
@@ -8,4 +8,5 @@ module.exports =
       <Route name="meta" handler={Meta} />
       <Route name="writing/:slug" handler={WritingPost} />
       <Route name="writing" handler={WritingIndex} />
+      <Redirect from="introducing-braintripping" to="writing/introducing-braintripping" />
   </Route>

@@ -10,8 +10,5 @@ module.exports = React.createClass
         <h3 style={{marginTop:-5}}>Photography</h3>
         <Photos />
       </div>
-
-
-      <h3 ><Link to="/writing">Writing</Link></h3>
       <WritingIndex />
     </div>
