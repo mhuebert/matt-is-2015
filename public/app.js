@@ -468,9 +468,7 @@ module.exports = React.createClass({
       "className": "tag-noclick"
     }, "Javascript"), React.createElement("span", {
       "className": "tag-noclick"
-    }, "React.js"), React.createElement("span", {
-      "className": "tag-noclick"
-    }, "Firebase")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "Relocation:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "Laboratory:"), " ", React.createElement("a", {
+    }, "React.js")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "Relocation:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "Laboratory:"), " ", React.createElement("a", {
       "href": "http://www.hackerschool.com"
     }, "Hacker School"), "."), React.createElement("p", null, React.createElement("em", null, "2013"), React.createElement("br", null), React.createElement("em", null, "Joined the faculty:"), " ", React.createElement("a", {
       "href": "http://www.banffcentre.ca"

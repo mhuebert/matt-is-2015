@@ -21,7 +21,6 @@ module.exports = React.createClass
         <p>
           <span className="tag-noclick">Javascript</span>
           <span className="tag-noclick">React.js</span>
-          <span className="tag-noclick">Firebase</span>
         </p>
         <hr />
         <h3>History</h3>
