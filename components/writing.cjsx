@@ -1,6 +1,6 @@
 React = require("react")
 marked = require("marked")
-r = require("superagent")
+superagent = require("superagent")
 {Link} = Router = require("react-router")
 _ = require('lodash')
 cx =require("react/lib/cx")
@@ -49,7 +49,7 @@ posts = [ "Trying to Matter"
     fetchData: (state, callback) ->  
       prefix = state.serverAddress || ""
       url = prefix+"/posts/#{state.params.slug}.md"
-      r.get url, (data, textStatus, xhr) =>
+      superagent.get url, (data, textStatus, xhr) =>
         callback
           slug: state.params.slug
           body: data.text

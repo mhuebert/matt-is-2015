@@ -469,15 +469,19 @@ module.exports = React.createClass({
       "className": "tag-noclick"
     }, "Javascript"), React.createElement("span", {
       "className": "tag-noclick"
-    }, "React.js")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "Relocation:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "Laboratory:"), " ", React.createElement("a", {
+    }, "React.js")), React.createElement("hr", null), React.createElement("h3", null, "History"), React.createElement("p", null, React.createElement("em", null, "2015"), React.createElement("br", null), React.createElement("em", null, "Relocate:"), " Berlin."), React.createElement("p", null, React.createElement("em", null, "2014"), React.createElement("br", null), React.createElement("em", null, "Participate:"), " ", React.createElement("a", {
       "href": "http://www.hackerschool.com"
-    }, "Hacker School"), "."), React.createElement("p", null, React.createElement("em", null, "2013"), React.createElement("br", null), React.createElement("em", null, "Joined the faculty:"), " ", React.createElement("a", {
+    }, "Hacker School"), "."), React.createElement("p", null, React.createElement("em", null, "2013"), React.createElement("br", null), React.createElement("em", null, "Join"), " ", React.createElement("a", {
       "href": "http://www.banffcentre.ca"
-    }, "The Banff Centre"), "."), React.createElement("p", null, React.createElement("em", null, "2012"), React.createElement("br", null), React.createElement("em", null, "Shipped:"), " ", React.createElement("a", {
+    }, "The Banff Centre"), " faculty."), React.createElement("p", null, React.createElement("em", null, "2012"), React.createElement("br", null), React.createElement("em", null, "Ship"), " ", React.createElement("a", {
       "href": "http://www.braintripping.com"
-    }, "BrainTripping"), "."), React.createElement("p", null, React.createElement("em", null, "2011"), React.createElement("br", null), React.createElement("em", null, "Shipped:"), " ", React.createElement("a", {
+    }, "BrainTripping"), ".", React.createElement("br", null), React.createElement("em", null, "Funded by"), " ", React.createElement("a", {
+      "href": "http://www.ycombinator.com"
+    }, "Y Combinator"), "."), React.createElement("p", null, React.createElement("em", null, "2011"), React.createElement("br", null), React.createElement("em", null, "Ship"), " ", React.createElement("a", {
       "href": "http://www.overlap.me"
-    }, "Overlap.me"), "."), React.createElement("p", null, React.createElement("em", null, "2007"), React.createElement("br", null), React.createElement("em", null, "Co-founded:"), " ", React.createElement("a", {
+    }, "Overlap.me"), ".", React.createElement("br", null), React.createElement("em", null, "Co-found"), " ", React.createElement("a", {
+      "href": "http://www.hackinghealth.ca"
+    }, "Hacking Health"), "."), React.createElement("p", null, React.createElement("em", null, "2007"), React.createElement("br", null), React.createElement("em", null, "Co-found"), " ", React.createElement("a", {
       "href": "http://www.bodo.ca"
     }, "Bodo"), ".")), React.createElement("img", {
       "className": "paper-shadow subtle-corner",
@@ -489,13 +493,13 @@ module.exports = React.createClass({
 
 
 },{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/writing.cjsx":[function(require,module,exports){
-var Link, Markdown, Post, React, Router, cx, marked, posts, r, slugify, _;
+var Link, Markdown, Post, React, Router, cx, marked, posts, slugify, superagent, _;
 
 React = require("react");
 
 marked = require("marked");
 
-r = require("superagent");
+superagent = require("superagent");
 
 Link = (Router = require("react-router")).Link;
 
@@ -549,7 +553,7 @@ this.Post = Post = React.createClass({
       var prefix, url;
       prefix = state.serverAddress || "";
       url = prefix + ("/posts/" + state.params.slug + ".md");
-      return r.get(url, (function(_this) {
+      return superagent.get(url, (function(_this) {
         return function(data, textStatus, xhr) {
           return callback({
             slug: state.params.slug,
