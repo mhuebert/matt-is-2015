@@ -4,8 +4,8 @@ React = require("react")
 module.exports = React.createClass
   render: ->
     <div>
-      <div className="paper text-small" >
-        <h2><Link to="/">Matt Huebert</Link></h2>
+      <div className="paper text-small blue-links" >
+        <h2><Link className="no-blue" to="/">Matt Huebert</Link></h2>
         <p>
           Hey—welcome to my corner of the web. I’m a designer and programmer with a special interest in creative, cross-field collaboration. 
           <Link to="/meta">Bio ›</Link>

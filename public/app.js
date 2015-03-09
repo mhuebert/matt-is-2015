@@ -455,8 +455,9 @@ Link = require("react-router").Link;
 module.exports = React.createClass({
   render: function() {
     return React.createElement("div", null, React.createElement("div", {
-      "className": "paper text-small"
+      "className": "paper text-small blue-links"
     }, React.createElement("h2", null, React.createElement(Link, {
+      "className": "no-blue",
       "to": "/"
     }, "Matt Huebert")), React.createElement("p", null, "Hey\u2014welcome to my corner of the web. I\u2019m a designer and programmer with a special interest in creative, cross-field collaboration. ", React.createElement(Link, {
       "to": "/meta"
@@ -488,7 +489,7 @@ module.exports = React.createClass({
 
 
 },{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/writing.cjsx":[function(require,module,exports){
-var Link, Markdown, Post, React, Router, marked, posts, r, slugify;
+var Link, Markdown, Post, React, Router, cx, marked, posts, r, slugify, _;
 
 React = require("react");
 
@@ -498,6 +499,10 @@ r = require("superagent");
 
 Link = (Router = require("react-router")).Link;
 
+_ = require('lodash');
+
+cx = require("react/lib/cx");
+
 slugify = function(text) {
   return text.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-').replace(/^-+/, '').replace(/-+$/, '');
 };
@@ -506,11 +511,11 @@ Markdown = React.createClass({
   render: function() {
     var html;
     html = marked(this.props.children);
-    return React.createElement("div", {
+    return React.createElement("div", React.__spread({}, _(this.props).omit("children").value(), {
       "dangerouslySetInnerHTML": {
         __html: html
       }
-    });
+    }));
   }
 });
 
@@ -521,7 +526,7 @@ this.Index = React.createClass({
     return React.createElement("div", null, React.createElement("h3", null, React.createElement(Link, {
       "to": "/writing"
     }, "Writing")), React.createElement("ul", {
-      "className": "writing-index paper-shadow"
+      "className": "writing-index paper-shadow blue-links"
     }, posts.map(function(post) {
       var slug;
       slug = slugify(post);
@@ -569,19 +574,40 @@ this.Post = Post = React.createClass({
       };
     })(this));
   },
+  isLoading: function() {
+    var _ref;
+    return !this.state.writingPost && this.getParams().slug !== ((_ref = this.props.writingPost) != null ? _ref.slug : void 0);
+  },
   render: function() {
     var _ref, _ref1;
     return React.createElement("div", null, React.createElement("h3", null, React.createElement(Link, {
       "to": "/writing"
-    }, "Writing")), React.createElement("div", {
-      "className": "paper thick"
-    }, React.createElement(Markdown, null, ((_ref = this.state.writingPost) != null ? _ref.body : void 0) || ((_ref1 = this.props.writingPost) != null ? _ref1.body : void 0) || "Loading...")));
+    }, "Writing")), React.createElement("p", {
+      "className": cx({
+        hidden: !this.isLoading(),
+        "align-center": true
+      })
+    }, React.createElement("img", {
+      "style": {
+        marginTop: 20,
+        opacity: 0.3
+      },
+      "src": "/images/loader.gif"
+    })), React.createElement("div", {
+      "className": cx({
+        hidden: this.isLoading(),
+        paper: true,
+        thick: true
+      })
+    }, React.createElement(Markdown, {
+      "className": "blue-links"
+    }, ((_ref = this.state.writingPost) != null ? _ref.body : void 0) || ((_ref1 = this.props.writingPost) != null ? _ref1.body : void 0) || "Loading...")));
   }
 });
 
 
 
-},{"marked":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/marked/lib/marked.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js","superagent":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/superagent/lib/client.js"}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"lodash":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js","marked":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/marked/lib/marked.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js","react/lib/cx":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/lib/cx.js","superagent":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/superagent/lib/client.js"}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

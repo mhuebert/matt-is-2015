@@ -2,6 +2,8 @@ React = require("react")
 marked = require("marked")
 r = require("superagent")
 {Link} = Router = require("react-router")
+_ = require('lodash')
+cx =require("react/lib/cx")
 
 slugify = (text) ->
   text.toString().toLowerCase()
@@ -14,7 +16,7 @@ slugify = (text) ->
 Markdown = React.createClass
   render: ->
     html = marked(@props.children)
-    <div dangerouslySetInnerHTML={{__html: html}} ></div>
+    <div {... _(@props).omit("children").value()} dangerouslySetInnerHTML={{__html: html}} ></div>
 
 posts = [ "Trying to Matter"
           "Kurt Cobain on Time"
@@ -29,9 +31,9 @@ posts = [ "Trying to Matter"
 
 @Index = React.createClass
   render: ->
-    <div>
+    <div >
     <h3 ><Link to="/writing">Writing</Link></h3>
-    <ul className="writing-index paper-shadow">
+    <ul className="writing-index paper-shadow blue-links">
     {
       posts.map (post) -> 
         slug = slugify(post)
@@ -56,11 +58,17 @@ posts = [ "Trying to Matter"
       return
     Post.fetchData {params: @getParams()}, (data) =>
       @setState writingPost: data
+  isLoading: ->
+    !@state.writingPost and @getParams().slug != @props.writingPost?.slug
   render: ->
     <div >
       <h3 ><Link to="/writing">Writing</Link></h3>
-      <div className="paper thick">
-      <Markdown>
+      <p className={cx(hidden: !@isLoading(), "align-center": true)}>
+        <img style={marginTop: 20, opacity: 0.3} src="/images/loader.gif" />
+      </p>
+      <div className={cx(hidden: @isLoading(), paper: true, thick: true)}>
+      
+      <Markdown className="blue-links">
         {@state.writingPost?.body || @props.writingPost?.body || "Loading..."}
       </Markdown>
       </div>
