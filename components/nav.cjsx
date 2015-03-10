@@ -17,7 +17,8 @@ module.exports = React.createClass
     @setState menuActive: !@state.menuActive
   render: ->
     transformLeft = (if @state.menuActive then 50 else 0)
-    toggle = <a onTouchTap={@toggleMenu} className="icon-uniE6B2 icon" style={{top:9, left:17,position:"absolute"}} />
+    toggle = <a onTouchTap={@toggleMenu} className="icon-uniE6B2 icon" style={{top:25, left:17,position:"absolute"}} />
+    
     circle = (radius) =>
       width = radius*2
       borderWidth = 15+@random()*10
@@ -37,6 +38,7 @@ module.exports = React.createClass
       opacity: (if @state.menuActive then 1 else 0)
       transform: "scale(#{(if @state.menuActive then 1 else 0)}) translate3d(#{@random()*maxLeft}px, 0, 0) translateZ(0)"
       # transform: "translate3d(#{@random()*140}px, #{@random()*20}px, 0)"
+    
     <div style={height: 10}>
         {toggle}
         <div className="left-menu">

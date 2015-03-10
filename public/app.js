@@ -55,11 +55,7 @@ module.exports = React.createClass({
       "style": {
         overflow: "hidden"
       }
-    }, React.createElement("h3", {
-      "style": {
-        marginTop: -5
-      }
-    }, "Photography"), React.createElement(Photos, null)), React.createElement(WritingIndex, null));
+    }, React.createElement("h3", null, "Photography"), React.createElement(Photos, null)), React.createElement(WritingIndex, null));
   }
 });
 
@@ -212,7 +208,7 @@ module.exports = React.createClass({
       "onTouchTap": this.toggleMenu,
       "className": "icon-uniE6B2 icon",
       "style": {
-        top: 9,
+        top: 25,
         left: 17,
         position: "absolute"
       }

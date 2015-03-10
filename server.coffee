@@ -36,15 +36,7 @@ routes = require("./routes")
 
 
 {Promise} = require('es6-promise')
-# function fetchData(routes, params) {
-#   var data = {};
-#   return Promise.all(routes
-#     .filter(route => route.handler.fetchData)
-#     .map(route => {
-#       return route.handler.fetchData(params).then(d => {data[route.name] = d;});
-#     })
-#   ).then(() => data);
-# }
+
 fetchData = (routes, params, callback) ->
   data = {}
   Promise.all(routes
@@ -61,7 +53,7 @@ app.get "*", (req, res) ->
     fetchData state.routes, state, (data) ->
       handler = React.createElement(Handler, data)
       markup = React.renderToString(handler)
-      markup += "<script> Router.run(routes, Router.HistoryLocation, function(Handler) {
+      markup += "<script> Router.run(routes, Router.HistoryLocation, function(Handler, state) {
                             return React.render(React.createElement(Handler, #{JSON.stringify(data)}), document);
                           });
                  </script>"
