@@ -11,7 +11,7 @@ passport.serializeUser (user, done) ->
   done(null, user.email)
 
 passport.deserializeUser (email, done) ->
-  db.findUserById(email, done)
+  db.findUserByEmail(email, done)
 
 authenticate = (username, password, done) ->
   validateUser = (err, user) ->
@@ -75,7 +75,7 @@ passport.use(new LocalStrategy({usernameField: "email"}, authenticate))
       user = _(req.body).pick("email", "password").value()
       user.password = bcrypt.hashSync(user.password, 8)
       db.saveUser user, (err, saved) ->
-        console.log("[DEBUG][/register 1][saveUser] %s", saved)
+        # console.log("[DEBUG][/register 1][saveUser] %s", saved)
         if err
           console.log "[ERROR][/register 2][saveUser]", err
           res.status(500).send("Error creating account.")
@@ -92,5 +92,11 @@ passport.use(new LocalStrategy({usernameField: "email"}, authenticate))
 
     app.get "/protected", ensureAuthenticated, (req, res, next) ->
       res.status(200).send("You are signed in.")
-    
+
+    app.get "/authenticated", (req, res, next) ->
+      if req.user
+        res.json(req.user)
+      else
+        res.status(401).send(false)
+      
     callback()

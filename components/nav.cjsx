@@ -2,6 +2,7 @@ React = require("react")
 {Link} = require("react-router")
 _ = require("lodash")
 prefix = require("react-prefixr")
+Accounts = require("./accounts")
 
 module.exports = React.createClass
   getInitialState: -> 
@@ -55,4 +56,5 @@ module.exports = React.createClass
               <Link onTouchTap={@toggleMenuDelayed} to="meta" > About Matt</Link>
             </div>
         </div>
+        <Accounts />
     </div>

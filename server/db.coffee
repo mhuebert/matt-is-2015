@@ -10,8 +10,7 @@ dbConfig =
   host: process.env.RDB_HOST || 'localhost'
   port: parseInt(process.env.RDB_PORT) || 28015
   db: if process.env.NODE_ENV == 'test' then 'mattis_test' else process.env.RDB_DB || 'mattis'
-  tables:
-    users: 'email'
+  tables: ['users']
 
 @drop = (callback) ->
   onConnect (err, connection) ->
@@ -33,31 +32,39 @@ dbConfig =
       else
         logdebug "[INFO ] RethinkDB database '%s' created", dbConfig.db
 
-      makeTable = (tablePair, callback) ->
-        [tableName, primaryKey] = tablePair
-        console.log "Create table #{tableName}"
-        r.db(dbConfig.db).tableCreate(tableName, {primaryKey: dbConfig.tables[tableName]}).run connection, (err, result) ->
+      makeTable = (tableName, callback) ->
+        # console.log "Create table #{tableName}"
+        r.db(dbConfig.db).tableCreate(tableName).run connection, (err, result) ->
           if (err)
             logdebug "[DEBUG] RethinkDB table '%s' already exists (%s:%s)\n%s", tableName, err.name, err.msg, err.message
           else
             logdebug("[INFO ] RethinkDB table '%s' created", tableName)
           callback()
-      async.map _.pairs(dbConfig.tables), makeTable, (err, results) ->
+      async.map dbConfig.tables, makeTable, (err, results) ->
         if err
           console.log "Err in DB setup"
           console.log err
-        callback(err, results)
+        r.db(dbConfig.db).table('users').indexList().run connection, (err, indexes) ->
+          if 'email' not in indexes
+            r.db(dbConfig.db).table('users').indexCreate('email').run(connection)
 
-@findUserByEmail = (mail, callback) ->
+          callback(err, results)
+
+@findUserByEmail = (email, callback) ->
   onConnect (err, connection) ->
-    logdebug("[INFO ][%s][findUserByEmail] Login {user: %s, pwd: 'you really thought I'd log it?'}", connection['_id'], mail)
-    r.db(dbConfig.db).table('users').get(mail).run connection, (err, result) ->
-      if err
-        logerror "[ERROR][%s][findUserByEmail][collect] %s:%s\n%s", connection['_id'], err.name, err.msg, err.message
-        callback(err)
-      else
-        callback(null, result)
-        connection.close()
+    logdebug("[INFO ][%s][findUserByEmail] Login {user: %s, pwd: 'you really thought I'd log it?'}", connection['_id'], email)
+    r.db(dbConfig.db).table('users').indexWait("email").run connection, ->
+      r.db(dbConfig.db).table('users').getAll(email, {index: "email"}).limit(1).run connection, (err, cursor) ->
+        if err
+          logerror "[ERROR][%s][findUserByEmail][collect] %s:%s\n%s", connection['_id'], err.name, err.msg, err.message
+          callback(err)
+        else
+          cursor.toArray (err, users) ->
+            if !users[0]
+              callback(null, false)
+            else
+              callback(null, users[0])
+            connection.close()
 
 @findUserById = (userId, callback) ->
   onConnect (err, connection) ->
@@ -81,7 +88,6 @@ dbConfig =
         else
           callback(null, false)
       connection.close()
-
 
 onConnect = (callback) ->
   r.connect {host: dbConfig.host, port: dbConfig.port}, (err, connection) ->

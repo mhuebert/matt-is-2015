@@ -7,7 +7,173 @@ window.routes = require("../routes");
 
 
 
-},{"../routes":"/Users/MattPro/Dropbox/Sites/mattis/routes.cjsx","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/head.cjsx":[function(require,module,exports){
+},{"../routes":"/Users/MattPro/Dropbox/Sites/mattis/routes.cjsx","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/accounts.cjsx":[function(require,module,exports){
+var React, cx, request;
+
+React = require("react");
+
+cx = require("react-classset");
+
+request = require("superagent");
+
+module.exports = React.createClass({
+  getInitialState: function() {
+    return {
+      activeTab: null,
+      currentUser: false
+    };
+  },
+  closeDropdown: function() {
+    return this.setState({
+      dropdownActive: false
+    });
+  },
+  setTab: function(name) {
+    return (function(_this) {
+      return function(e) {
+        e.preventDefault();
+        return _this.setState({
+          activeTab: name,
+          dropdownActive: _this.state.activeTab === name && _this.state.dropdownActive === true ? false : true
+        });
+      };
+    })(this);
+  },
+  signIn: function(e) {
+    var currentUser;
+    e.preventDefault();
+    currentUser = {
+      email: this.refs.signInEmail.getDOMNode().value,
+      password: this.refs.signInPassword.getDOMNode().value
+    };
+    return request.post("/sign-in").send(currentUser).end((function(_this) {
+      return function(err, res) {
+        return _this.setState({
+          currentUser: res.body,
+          dropdownActive: res.status === 200 ? null : "signIn"
+        });
+      };
+    })(this));
+  },
+  logOut: function() {
+    return request.post("/log-out").end((function(_this) {
+      return function(err, res) {
+        if (res.status === 200) {
+          return _this.setState({
+            currentUser: false,
+            dropdownActive: false
+          });
+        }
+      };
+    })(this));
+  },
+  register: function(e) {
+    var currentUser;
+    e.preventDefault();
+    currentUser = {
+      email: this.refs.registerEmail.getDOMNode().value,
+      password: this.refs.registerPassword.getDOMNode().value
+    };
+    return request.post("/register").send(currentUser).end((function(_this) {
+      return function(err, res) {
+        return _this.setState({
+          currentUser: res.body
+        });
+      };
+    })(this));
+  },
+  componentDidMount: function() {
+    return request.get("/authenticated", (function(_this) {
+      return function(res) {
+        return _this.setState({
+          currentUser: res.body
+        });
+      };
+    })(this));
+  },
+  render: function() {
+    var dropdownLabel;
+    dropdownLabel = this.state.currentUser ? this.state.currentUser.email : "Sign In";
+    return React.createElement("div", {
+      "className": "hidden"
+    }, React.createElement("div", null, React.createElement("a", {
+      "className": cx({
+        hidden: !this.state.currentUser
+      }),
+      "href": "javascript:void(0)",
+      "onClick": this.setTab("profile")
+    }, this.state.currentUser.email), React.createElement("a", {
+      "className": cx({
+        hidden: this.state.currentUser
+      }),
+      "href": "javascript:void(0)",
+      "onClick": this.setTab("register")
+    }, "Register"), React.createElement("a", {
+      "className": cx({
+        hidden: this.state.currentUser
+      }),
+      "href": "javascript:void(0)",
+      "onClick": this.setTab("signIn")
+    }, "Sign In")), React.createElement("div", {
+      "className": cx({
+        "accounts-dropdown": true,
+        hidden: !this.state.dropdownActive
+      })
+    }, React.createElement("a", {
+      "href": "javascript:void(0)",
+      "onClick": this.closeDropdown
+    }, "\u00d7"), React.createElement("div", {
+      "className": cx({
+        hidden: this.state.activeTab !== "signIn"
+      })
+    }, React.createElement("form", {
+      "onSubmit": this.signIn
+    }, React.createElement("input", {
+      "ref": "signInEmail",
+      "type": "text"
+    }), React.createElement("br", null), React.createElement("input", {
+      "ref": "signInPassword",
+      "type": "password"
+    }), React.createElement("br", null), React.createElement("input", {
+      "type": "submit",
+      "value": "Sign In"
+    }))), React.createElement("div", {
+      "className": cx({
+        hidden: this.state.activeTab !== "logOut"
+      })
+    }, "Log Out"), React.createElement("div", {
+      "className": cx({
+        hidden: this.state.activeTab !== "register"
+      })
+    }, React.createElement("form", {
+      "onSubmit": this.register
+    }, React.createElement("input", {
+      "ref": "registerEmail",
+      "type": "text"
+    }), React.createElement("br", null), React.createElement("input", {
+      "ref": "registerPassword",
+      "type": "password"
+    }), React.createElement("br", null), React.createElement("input", {
+      "type": "submit",
+      "value": "Register"
+    }))), React.createElement("div", {
+      "className": cx({
+        hidden: this.state.activeTab !== "resetPassword"
+      })
+    }, "Reset Password"), React.createElement("div", {
+      "className": cx({
+        hidden: this.state.activeTab !== "profile"
+      })
+    }, React.createElement("a", {
+      "href": "javascript:void(0)",
+      "onClick": this.logOut
+    }, "Log Out"))));
+  }
+});
+
+
+
+},{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-classset":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-classset/classSet.js","superagent":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/superagent/lib/client.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/head.cjsx":[function(require,module,exports){
 var React;
 
 React = require("react");
@@ -164,7 +330,7 @@ module.exports = React.createClass({
 
 
 },{"react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/nav.cjsx":[function(require,module,exports){
-var Link, React, prefix, _;
+var Accounts, Link, React, prefix, _;
 
 React = require("react");
 
@@ -173,6 +339,8 @@ Link = require("react-router").Link;
 _ = require("lodash");
 
 prefix = require("react-prefixr");
+
+Accounts = require("./accounts");
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -266,13 +434,13 @@ module.exports = React.createClass({
     }, React.createElement(Link, {
       "onTouchTap": this.toggleMenuDelayed,
       "to": "meta"
-    }, " About Matt"))));
+    }, " About Matt"))), React.createElement(Accounts, null));
   }
 });
 
 
 
-},{"lodash":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-prefixr":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/photos.cjsx":[function(require,module,exports){
+},{"./accounts":"/Users/MattPro/Dropbox/Sites/mattis/components/accounts.cjsx","lodash":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/lodash/index.js","react":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react/react.js","react-prefixr":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js","react-router":"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-router/lib/index.js"}],"/Users/MattPro/Dropbox/Sites/mattis/components/photos.cjsx":[function(require,module,exports){
 var React, Swipe, prefix;
 
 React = require("react/addons");
@@ -14123,6 +14291,49 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 }());
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-classset/classSet.js":[function(require,module,exports){
+/**
+ * Copyright 2013 Facebook, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+function cx(classNames) {
+  var names = '';
+
+  if (typeof classNames == 'object') {
+    for (var name in classNames) {
+      if (!classNames.hasOwnProperty(name) || !classNames[name]) {
+        continue;
+      }
+      names += name + ' ';
+    }
+  } else {
+    for (var i = 0; i < arguments.length; i++) {
+      // We should technically exclude 0 too, but for the sake of backward
+      // compat we'll keep it (for now)
+      if (arguments[i] == null) {
+        continue;
+      }
+      names += arguments[i] + ' ';
+    }
+  }
+
+  return names.trim();
+}
+
+module.exports = cx;
+
 },{}],"/Users/MattPro/Dropbox/Sites/mattis/node_modules/react-prefixr/stylePrefixr.js":[function(require,module,exports){
 (function (global){
 'use strict';
