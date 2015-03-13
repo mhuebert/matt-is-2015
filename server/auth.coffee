@@ -36,7 +36,11 @@ passport.use(new LocalStrategy({usernameField: "email"}, authenticate))
 
 @initialize = (app, callback) ->
   
-  db.setup ->
+  db.setup (err) ->
+    if err
+      console.log "No authentication"
+      callback(err)
+      return
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(cookieParser())

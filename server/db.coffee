@@ -21,7 +21,10 @@ dbConfig =
       console.log "Trying to delete a non-test database"
 @setup = (callback) ->
   r.connect { host: dbConfig.host, port: dbConfig.port }, (err, connection) ->
-
+    if err
+      console.log "DB not functioning"
+      callback(err)
+      return
     assert.ok(err == null, err)
 
     r.dbCreate(dbConfig.db).run connection, (err, result) ->
