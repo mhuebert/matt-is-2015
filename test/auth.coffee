@@ -22,6 +22,12 @@ describe 'Server', ->
           db.setup ->     
             done()
     , 200  
+
+  it 'Should not access protected content when not authenticated', (done) ->
+    agent
+      .get("/protected")
+      .expect(403, done)
+  
   it 'Should load HTML home page', (done) ->
     agent
       .get("/")

@@ -29,7 +29,7 @@ authenticate = (username, password, done) ->
       return done(null, false, {message: "Invalid username or password"})
     db.findUserByEmail(username, validateUser)
   
-ensureAuthenticated = (req, res, next) ->
+@ensureAuthenticated = ensureAuthenticated = (req, res, next) ->
   if req.isAuthenticated()
     next()
   else
@@ -73,5 +73,8 @@ passport.use = new LocalStrategy(authenticate)
           res.status(200).json(user)
         else
           res.status(500).send("The account was not created.")
+
+    app.get "/protected", ensureAuthenticated, (req, res, next) ->
+      res.status(200).send("You are signed in.")
     
     callback()
