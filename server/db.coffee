@@ -48,18 +48,13 @@ dbConfig =
 @findUserByEmail = (mail, callback) ->
   onConnect (err, connection) ->
     logdebug("[INFO ][%s][findUserByEmail] Login {user: %s, pwd: 'you really thought I'd log it?'}", connection['_id'], mail)
-    r.db(dbConfig.db).table('users').filter({'mail': mail}).limit(1).run connection, (err, cursor) ->
+    r.db(dbConfig.db).table('users').get(mail).run connection, (err, result) ->
       if err
         logerror "[ERROR][%s][findUserByEmail][collect] %s:%s\n%s", connection['_id'], err.name, err.msg, err.message
         callback(err)
       else
-        cursor.next (err, row) ->
-          if err
-            logerror("[ERROR][%s][findUserByEmail][collect] %s:%s\n%s", connection['_id'], err.name, err.msg, err.message)
-            callback(err)
-          else
-            callback(null, row)
-          connection.close()
+        callback(null, result)
+        connection.close()
 
 @findUserById = (userId, callback) ->
   onConnect (err, connection) ->

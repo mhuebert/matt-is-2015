@@ -11,7 +11,6 @@ app.use express.static(__dirname + "/public")
 app.use(favicon(__dirname + '/public/favicon.ico'))
 app.use(logger('dev'))
 
-# Authentication with Passport and RethinkDB
 require("./server/auth").initialize app, =>
   PORT = if process.env.NODE_ENV == "test" then 3009 else process.env.PORT || 3003
   require("./server/controller")(app, PORT)
