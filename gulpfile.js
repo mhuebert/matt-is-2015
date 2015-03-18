@@ -11,16 +11,20 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
-
+var babelify = require("babelify");
 require("node-cjsx").transform();
 
-watchify.args.extensions = ['.cjsx', '.coffee', '.js']
+watchify.args.extensions = ['.cjsx', '.coffee', '.js', '.es']
 var bundler = browserify("./client/app.coffee", watchify.args)
+    .transform(babelify.configure({
+     extensions: ["es6"]
+    }))
     .transform({ }, "coffee-reactify")
 
 if (!process.env.PORT) {
   bundler = watchify(bundler)
 }
+
 
 gulp.task('js', bundle);
 bundler.transform('brfs');

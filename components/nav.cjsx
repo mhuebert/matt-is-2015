@@ -2,7 +2,7 @@ React = require("react")
 {Link} = require("react-router")
 _ = require("lodash")
 prefix = require("react-prefixr")
-Accounts = require("./accounts")
+Accounts = require("./accounts.es6")
 
 module.exports = React.createClass
   getInitialState: -> 

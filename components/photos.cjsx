@@ -1,12 +1,18 @@
 React = require("react/addons")
 prefix = require("react-prefixr")
-Swipe = require("react-swipe")
+Swipe = require("./swipe")
 
 module.exports = React.createClass
-  next: ->
-    @refs.swipe.swipe.next()
-  prev: ->
-    @refs.swipe.swipe.prev()
+  getInitialState: -> {}
+  swipe: ->
+    @refs.swipe.swipe()
+  next: (e) ->
+    @swipe().next()
+    e.preventDefault()
+  prev: (e) ->
+    @swipe().prev()
+    e.preventDefault()
+
   render: ->
     <div >
       <Swipe ref="swipe" onClick={@next}>
@@ -29,7 +35,7 @@ module.exports = React.createClass
         <img src='/photography/matt-epp.jpg' />
       </Swipe>
       <div className="slider-nav">
-        <span style={float: "right" } onClick={@next} className="slider-move icon-uniE720" />
-        <span style={float: "left" } onClick={@prev} className="slider-move icon-uniE71F" />
+        <span style={float: "right" } onMouseDown={@next} className="slider-move icon-uniE720" />
+        <span style={float: "left" } onMouseDown={@prev} className="slider-move icon-uniE71F" />
       </div>
     </div>
