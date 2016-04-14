@@ -46,12 +46,12 @@
     "react-router": "^0.12.4",
     "react-swipe": "^1.0.3",
     "react-tap-event-plugin": "^0.1.4",
-    "rethinkdb": "^1.16.2",
-    "serve-favicon": "^2.2.0",
-    "supertest": "^0.15.0"
+    "serve-favicon": "^2.2.0"
   },
   "devDependencies": {
     "babelify": "^5.0.4",
+    "supertest": "^0.15.0",
+    "rethinkdb": "^1.16.2",
     "brfs": "^1.4.0",
     "browserify": "^9.0.3",
     "css-loader": "^0.9.1",
