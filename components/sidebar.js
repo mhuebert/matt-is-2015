@@ -1,9 +1,9 @@
-React = require("react")
-{Link} = require("react-router")
+var React = require("react")
+var {Link} = require("react-router")
 
-module.exports = React.createClass
-  render: ->
-    <div>
+module.exports = React.createClass({
+  render: function() {
+    return <div>
       <div className="paper text-small blue-links" >
         <h2><Link className="no-blue" to="/">Matt Huebert</Link></h2>
         <p>
@@ -51,5 +51,7 @@ module.exports = React.createClass
           <em>Co-found</em> <a href="http://www.bodo.ca">Bodo</a>.
         </p>
       </div>
-      <img className="paper-shadow subtle-corner" src="/images/matt-huebert-300px.jpg" />
+      <img className="paper-shadow subtle-corner hidden" src="/images/matt-huebert-300px.jpg" />
     </div>
+  }
+})

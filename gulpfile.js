@@ -12,19 +12,27 @@ var source = require('vinyl-source-stream');
 var uglify = require("gulp-uglify");
 var streamify = require("gulp-streamify");
 var babelify = require("babelify");
-require("node-cjsx").transform();
+var path = require("path")
 
-watchify.args.extensions = ['.cjsx', '.coffee', '.js', '.es']
-var bundler = browserify("./client/app.coffee", watchify.args)
-    .transform(babelify.configure({
-     extensions: ["es6"]
-    }))
-    .transform({ }, "coffee-reactify")
+// var bundler = browserify()
+//     .transform(babelify({extensions: [".es6"]}))
+//     .transform({ }, "coffee-reactify")
+//     .require(path.join(__dirname, "./client/test.es6"), watchify.args)
+
+
+browserifyArgs = {
+    cache: {},
+    packageCache: {},
+    fullPaths: true,
+    entry: true
+}
+var bundler = browserify()
+            .transform(babelify.configure({extensions: [".es6", ".js"]}))
+            .require(path.join(__dirname, "./client/app.es6"), browserifyArgs)
 
 if (!process.env.PORT) {
   bundler = watchify(bundler)
 }
-
 
 gulp.task('js', bundle);
 bundler.transform('brfs');
@@ -35,9 +43,9 @@ function bundle() {
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('app.js'))
     .pipe(gulp.dest("./public"))
-    .pipe(rename("app.min.js"))
-    .pipe(streamify(uglify()))
-    .pipe(gulp.dest("./public"));
+    // .pipe(rename("app.min.js"))
+    // .pipe(streamify(uglify()))
+    // .pipe(gulp.dest("./public"));
 }
 
 gulp.task('styles', function () {

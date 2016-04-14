@@ -19,14 +19,14 @@ module.exports = React.createClass({
       self.setState({
           activeTab: name,
           dropdownActive: (this.state.activeTab == name && this.state.dropdownActive == true) ? false : true  
-        })
+        }, ()=>{if(this.refs[`${name}:email`]){this.refs[`${name}:email`].getDOMNode().focus()}})
       }
   },
   signIn: function(e) {
     e.preventDefault()
     var currentUser ={
-        email: this.refs.signInEmail.getDOMNode().value,
-        password: this.refs.signInPassword.getDOMNode().value
+        email: this.refs["signIn:email"].getDOMNode().value,
+        password: this.refs["signIn:password"].getDOMNode().value
     }
     request.post("/sign-in").send(currentUser).end((err, res) => {
       this.setState({
@@ -46,8 +46,8 @@ module.exports = React.createClass({
   register: function(e) {
     e.preventDefault()
     var currentUser ={
-      email: this.refs.registerEmail.getDOMNode().value,
-      password: this.refs.registerPassword.getDOMNode().value
+      email: this.refs["register:email"].getDOMNode().value,
+      password: this.refs["register:password"].getDOMNode().value
     }
     request.post("/register").send(currentUser).end((err, res) =>{
           this.setState({currentUser: res.body})
@@ -59,6 +59,7 @@ module.exports = React.createClass({
       })
     },
   render: function() {
+    var inputStyle = {padding:"4px 7px"}
     return (<div className="hiddenx">
               <div>
                 <a className={cx({hidden: !this.state.currentUser})} href="javascript:void(0)" onClick={this.setTab("profile")}>{this.state.currentUser ? this.state.currentUser.email : ""}</a>
@@ -68,12 +69,12 @@ module.exports = React.createClass({
         
               <div className={cx({"accounts-dropdown": true, hidden: !this.state.dropdownActive})}>
         
-                <a href="javascript:void(0)" onClick={this.closeDropdown}>&times;</a>
+                <a href="javascript:void(0)" className="close-x" onClick={this.closeDropdown}>&times;</a>
         
                 <div className={cx({hidden: this.state.activeTab !== "signIn"})}>
                   <form onSubmit={this.signIn}>
-                    <input ref="signInEmail" type="text" /><br/>
-                    <input ref="signInPassword" type="password" /><br/>
+                    <input style={inputStyle} ref="signIn:email" placeholder="Email Address" type="text" /><br/>
+                    <input style={inputStyle} ref="signIn:password" placeholder="Password" type="password" /><br/>
                     <input type="submit" value="Sign In" />
                   </form>
                 </div>
@@ -84,8 +85,8 @@ module.exports = React.createClass({
         
                 <div className={cx({hidden:this.state.activeTab != "register"})}>
                   <form onSubmit={this.register}>
-                    <input ref="registerEmail" type="text" /><br/>
-                    <input ref="registerPassword" type="password" /><br/>
+                    <input ref="register:email" type="text" /><br/>
+                    <input ref="register:password" type="password" /><br/>
                     <input type="submit" value="Register" />
                   </form>
                 </div>

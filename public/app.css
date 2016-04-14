@@ -642,13 +642,24 @@ blockquote {
 .paper-shadow {
   box-shadow: 0 0 5px rgba(0,0,0,0.15);
 }
+.close-x {
+  position: absolute;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  padding: 5px;
+  right: 0;
+  top: 0;
+  display: inline-block;
+}
 .left-menu {
   width: 0;
   position: absolute;
   -webkit-transition: all ease-out 0.35s;
           transition: all ease-out 0.35s;
   z-index: 100;
-  top: 30px;
+  top: 50px;
   margin: 0;
   padding: 0;
 }
@@ -866,10 +877,10 @@ h3 a {
 .accounts-dropdown {
   background: #fff;
   position: relative;
-  padding: 20px;
+  padding: 30px 20px 20px;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
   display: inline-block;
-  z-index: 100;
+  z-index: 102;
 }
 .hidden {
   display: none !important;

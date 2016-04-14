@@ -1,9 +1,9 @@
 
-React = require("react")
+var React = require("react")
 
-module.exports = React.createClass
-    render: ->
-        <head>
+module.exports = React.createClass({
+    render: function(){
+        return <head>
             <title >{this.props.title}</title>
             <meta name='description' content={this.props.description} />
             <meta charSet="utf-8"/>
@@ -12,3 +12,5 @@ module.exports = React.createClass
             <link rel="stylesheet" type="text/css" href="/app.css" /> 
             <script src="/app.js"></script>
         </head>
+    }
+})

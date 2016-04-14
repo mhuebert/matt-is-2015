@@ -1,6 +1,3 @@
-require("node-cjsx").transform()
-require('node-jsx').install({extension: '.jsx'})
-
 // var authApp = require("./mattis-auth").init({dbConfig: require("./server/dbConfig")})
 // app.use("/accounts", authApp)
 
@@ -22,10 +19,10 @@ var session = require('koa-session')
 app.keys = ['I am a little secret', 'not a teapot.']
 app.use(session(app))
 
-var auth = require("./mattis-auth")
-auth.config({dbConfig: require("./server/dbConfig")})
+// var auth = require("./mattis-auth")
+// auth.config({dbConfig: require("./server/dbConfig")})
 app.use(require("./server/errorHandler")())
-app.use(mount("/accounts", auth.router.routes()))
+// app.use(mount("/accounts", auth.router.routes()))
 var koaRouter = require("./server/controller")(`http://localhost:${PORT}`).routes()
 app.use(koaRouter)
 

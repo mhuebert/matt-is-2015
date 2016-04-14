@@ -1,1 +1,1 @@
-module.exports = require("./lib/auth.es6")
+module.exports = require("./lib/auth")
