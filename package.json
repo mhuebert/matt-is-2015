@@ -47,7 +47,8 @@
     "react-router": "^0.12.4",
     "react-swipe": "^1.0.3",
     "react-tap-event-plugin": "^0.1.4",
-    "serve-favicon": "^2.2.0"
+    "serve-favicon": "^2.2.0",
+    "superagent": "^0.21.0"
   },
   "devDependencies": {
     "babelify": "^5.0.4",
@@ -74,7 +75,6 @@
     "should": "^5.2.0",
     "stylus": "^0.49.3",
     "stylus-loader": "^0.6.0",
-    "superagent": "^0.21.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.4.0"
   },
