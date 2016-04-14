@@ -114,7 +114,7 @@
       "react-prefixr": "^0.1.0",
       "react-router": "^0.12.4",
       "react-swipe": "^1.0.3",
-      "react-tap-event-plugin": "^0.1.4",
+      "react-tap-event-plugin": "^0.1.9",
       "reactify": "^1.0.0",
       "rethinkdb": "^1.16.2",
       "serve-favicon": "^2.2.0"
