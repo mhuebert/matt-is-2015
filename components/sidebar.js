@@ -26,29 +26,29 @@ module.exports = React.createClass({
         <h3>History</h3>
         <p>
           <em>2015</em><br/>
-          <em>Relocate:</em> Berlin.
+          <em>Relocation</em> Berlin.
         </p>
         <p>
           <em>2014</em><br/>
-          <em>Participate:</em> <a href="http://www.hackerschool.com">Hacker School</a>.
+          <em>Participation</em> <a href="http://www.hackerschool.com"> Hacker School</a>.
         </p>
         <p>
           <em>2013</em><br/>
-          <em>Join</em> <a href="http://www.banffcentre.ca">The Banff Centre</a> faculty.
+          <em>Joined</em> <a href="http://www.banffcentre.ca"> The Banff Centre</a> faculty.
         </p>
         <p>
           <em>2012</em><br/>
-          <em>Ship</em> <a href="http://www.braintripping.com">BrainTripping</a>.<br/>
-          <em>Funded by</em> <a href="http://www.ycombinator.com">Y Combinator</a>.
+          <em>Shipped</em> <a href="http://www.braintripping.com">BrainTripping</a>.<br/>
+          <em>Funded</em> <a href="http://www.ycombinator.com">Y Combinator</a>.
         </p>
         <p>
           <em>2011</em><br/>
-          <em>Ship</em> <a href="http://www.overlap.me">Overlap.me</a>.<br/>
-          <em>Co-found</em> <a href="http://www.hackinghealth.ca">Hacking Health</a>.
+          <em >Shipped</em> <a href="http://www.matt.is/writing/introducing-overlapme">Overlap.me</a>.<br/>
+          <em>Co-founded</em> <a href="http://www.hackinghealth.ca">Hacking Health</a>.
         </p>
         <p>
           <em>2007</em><br/>
-          <em>Co-found</em> <a href="http://www.bodo.ca">Bodo</a>.
+          <em>Co-founded</em> <a href="http://www.bodo.ca">Bodo</a>.
         </p>
       </div>
       <img className="paper-shadow subtle-corner hidden" src="/images/matt-huebert-300px.jpg" />

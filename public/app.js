@@ -507,7 +507,7 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Relocate:"
+            "Relocation"
           ),
           " Berlin."
         ),
@@ -523,13 +523,13 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Participate:"
+            "Participation"
           ),
           " ",
           React.createElement(
             "a",
             { href: "http://www.hackerschool.com" },
-            "Hacker School"
+            " Hacker School"
           ),
           "."
         ),
@@ -545,13 +545,13 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Join"
+            "Joined"
           ),
           " ",
           React.createElement(
             "a",
             { href: "http://www.banffcentre.ca" },
-            "The Banff Centre"
+            " The Banff Centre"
           ),
           " faculty."
         ),
@@ -567,7 +567,7 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Ship"
+            "Shipped"
           ),
           " ",
           React.createElement(
@@ -580,7 +580,7 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Funded by"
+            "Funded"
           ),
           " ",
           React.createElement(
@@ -602,12 +602,12 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Ship"
+            "Shipped"
           ),
           " ",
           React.createElement(
             "a",
-            { href: "http://www.overlap.me" },
+            { href: "http://www.matt.is/writing/introducing-overlapme" },
             "Overlap.me"
           ),
           ".",
@@ -615,7 +615,7 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Co-found"
+            "Co-founded"
           ),
           " ",
           React.createElement(
@@ -637,7 +637,7 @@ module.exports = React.createClass({
           React.createElement(
             "em",
             null,
-            "Co-found"
+            "Co-founded"
           ),
           " ",
           React.createElement(
